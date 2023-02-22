@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SchedulingAppController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="601.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Downloads/Customer%20Appointments.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="64.0" layoutY="35.0" prefHeight="58.0" prefWidth="207.0" text="Customer List">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Button fx:id="customersButton" layoutX="279.0" layoutY="54.0" mnemonicParsing="false" onAction="#clickCustomersButton" prefHeight="46.0" prefWidth="262.0" text="VIEW ALL CUSTOMERS" textAlignment="CENTER" textFill="#6d90ab">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="64.0" layoutY="64.0" prefHeight="58.0" prefWidth="207.0" text="View your current customer list">
+         <font>
+            <Font name="System Italic" size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="64.0" layoutY="171.0" prefHeight="58.0" prefWidth="207.0" text="View your outstanding appointments">
+         <font>
+            <Font name="System Italic" size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="64.0" layoutY="141.0" prefHeight="58.0" prefWidth="207.0" text="Appointments">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Button fx:id="appointmentsButton" layoutX="279.0" layoutY="161.0" mnemonicParsing="false" onAction="#clickAppointmentsButton" prefHeight="46.0" prefWidth="262.0" text="VIEW APPOINTMENTS" textAlignment="CENTER" textFill="#6d90ab">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="64.0" layoutY="243.0" prefHeight="58.0" prefWidth="207.0" text="Reports">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Button fx:id="reportsButton" layoutX="279.0" layoutY="263.0" mnemonicParsing="false" onAction="#clickReportsButton" prefHeight="46.0" prefWidth="262.0" text="VIEW REPORTS" textAlignment="CENTER" textFill="#6d90ab">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="64.0" layoutY="272.0" prefHeight="58.0" prefWidth="207.0" text="View all of your current reports">
+         <font>
+            <Font name="System Italic" size="11.0" />
+         </font>
+      </Label>
+      <Button fx:id="logoutButton" layoutX="42.0" layoutY="347.0" mnemonicParsing="false" onAction="#clickLoginMenu" prefHeight="31.0" prefWidth="100.0" text="LOGOUT" textAlignment="CENTER" textFill="#6d90ab">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="exitButton" layoutX="153.0" layoutY="347.0" mnemonicParsing="false" onAction="#clickExit" prefHeight="31.0" prefWidth="100.0" text="EXIT" textAlignment="CENTER" textFill="#6d90ab">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
