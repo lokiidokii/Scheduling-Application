@@ -86,25 +86,25 @@ public class LoginScreenController implements Initializable {
     
     /*Login Button action*/
     @FXML
-    public void clickLogin(ActionEvent actionEvent) throws IOException, SQLException {
+    public void clickLogin(ActionEvent event) throws IOException, SQLException {
+        //Get username & password from user
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
-        Username.username = username;
-        //get username & password
+        Username.username = username; 
         getUsername(username);
         getPassword(password);
-                
+        //Check username & password are valid
      if (getUsername(username) && getPassword(password)) {
             LoginActivity.logAttempt(username, true, "Login Successful");
             getUserIdAndUsername(username);
-            //Once logged in, move user to Scheduling App Menu
-            stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
+            //If login is successful, move user to Scheduling App Menu window
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/SchedulingApp.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
         } else {
-            //Prompt user to ensure login information is correct
-            LoginActivity.logAttempt(username, false, "Login unsuccessful, please try again");
+            //Else alert user login attempt was unsuccessful
+            LoginActivity.logAttempt(username, false, "Login Unsuccessful");
            Alerts.errorAlert(titleForLogin, headerForLogin, contentForLogin);
         }
     }
@@ -122,11 +122,11 @@ public class LoginScreenController implements Initializable {
 
         while(results.next()) {
             if(results.getString("Password").equals(password)) {
-                return true;
+                return true; //check password equals password in DB, if true continue login
             }
         }
         statement.close();
-        return false;
+        return false; //else alert user that login is incorrect
         }  
 
     /* Match username entered with username from DB.
@@ -140,11 +140,11 @@ public class LoginScreenController implements Initializable {
 
         while(results.next()) {
             if(results.getString("User_Name").equals(username)) {
-                return true;
+                return true; //check username equals username in DB, if true continue login
             }
         }
         statement.close();
-        return false;
+        return false; //else alert user that login is incorrect
     }
 
     /* Match UserID to username from DB. 
@@ -174,7 +174,7 @@ public class LoginScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         ZoneId zone = ZoneId.systemDefault();
         zoneLabelBlank.setText(zone.toString());
-        //get default locale
+        //Get default locale
         Locale locale = Locale.getDefault();
         ResourceBundle rsBundle = ResourceBundle.getBundle("languages/language", locale);
         //Switching login menu language to French
@@ -191,7 +191,9 @@ public class LoginScreenController implements Initializable {
             titleForLogin = rsBundle.getString("titleForLogin");
             headerForLogin = rsBundle.getString("headerForLogin");
             contentForLogin = rsBundle.getString("contentForLogin");
-        } else {
+        }
+        //Login menu is kept in English
+        else {
             titleForUserID = rsBundle.getString("titleForUserID");
             headerForUserID = rsBundle.getString("headerForUserID");
             contentForUserID = rsBundle.getString("contentForUserID");
