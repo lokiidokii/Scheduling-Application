@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -47,6 +48,10 @@ public class CustomerTableController implements Initializable {
     /*Customer Table - Address.*/
     @FXML
     public TableColumn<CustomerInfo, String> customerTableAddressColumn;
+    
+    /*Customer Table - City.*/
+    @FXML
+    private TableColumn<?, ?> customerTableCityColumn;
 
     /*Customer Table - Country.*/
     @FXML
@@ -121,17 +126,12 @@ public class CustomerTableController implements Initializable {
         public static int getCustomerApptCount(int customerID) throws SQLException {
         Statement customerApptCount = JDBC.getConnection().createStatement();
         String modifySQL =
-                "SELECT COUNT(Appointment_ID) AS Count " +
-                "FROM appointments " +
-                "INNER JOIN customers ON customers.Customer_ID = appointments.Customer_ID " +
-                "WHERE customers.Customer_ID=" + customerID;
+                "SELECT COUNT(Appointment_ID) AS Count FROM appointments INNER JOIN customers ON customers.Customer_ID = appointments.Customer_ID WHERE customers.Customer_ID=" + customerID;
 
         ResultSet apptCount = customerApptCount.executeQuery(modifySQL);
 
         if(apptCount.next() && apptCount.getInt("Count") > 0) {
-            Alerts.errorAlert("CANNOT DELETE CUSTOMER",
-                    "Customer can't be deleted",
-                    "You must delete the existing appointments you have with this customer first");
+            Alerts.errorAlert("Cannot Delete Customer", "Customer can't be deleted", "You must delete the existing appointments you have with this customer first.");
             return -1;
         }
         return 0;
@@ -186,7 +186,7 @@ public class CustomerTableController implements Initializable {
         //Make sure user has selected a customer to modify
         //If unselected, an alert will appear informing user to select customer
         if(selectedCustomer == null) {
-            Alerts.errorAlert( "CANNOT MODIFY CUSTOMER", "No customer selected", "Please choose a customer to modify");
+            Alerts.errorAlert( "Cannot Modify Customer", "No customer selected", "Please choose a customer to modify.");
         } 
         //Else user will be taken to modCustomer screen 
         else {
@@ -197,12 +197,24 @@ public class CustomerTableController implements Initializable {
         }
     }    
     
-    /**
-     * Initializes the controller class.
+    /*
+     * Fill customer table with data from the DB.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+      try {
+            CustomerInfo.getGetAllCustomers().clear();
+            customerTable.setItems(CustomerInfo.getGetAllCustomers());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        customerTableIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        customerTableNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        customerTableAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        customerTableCityColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
+        customerTableCountryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
+        customerTablePostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        customerTablePhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
     }    
     
 }

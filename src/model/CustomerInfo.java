@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import helper.JDBC;
@@ -14,7 +10,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author LabUser
+ * @author HannahBergman
  */
 public class CustomerInfo {
    /** Customer ID*/
@@ -34,7 +30,7 @@ public class CustomerInfo {
     /** Observable List of Customer called allCustomersList*/
     public static ObservableList<CustomerInfo> allCustomersList = FXCollections.observableArrayList();
 
-    /** Customer constructor
+    /** Customer Info constructor.
      @param customerID
      @param customerName
      @param address
