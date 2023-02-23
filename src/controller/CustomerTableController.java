@@ -1,15 +1,27 @@
 package controller;
 
+import helper.DBQueries;
+import helper.JDBC;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.util.Optional;
+
+import model.Alerts;
+import model.CustomerInfo;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -30,38 +42,43 @@ public class CustomerTableController implements Initializable {
     
     /**/
     @FXML
-    public TableView<Customer> customerTable;
+    public TableView<CustomerInfo> customerTable;
     
     /*Customer Table - Address.*/
     @FXML
-    public TableColumn<Customer, ?> customerTableAddressColumn;
+    public TableColumn<CustomerInfo, String> customerTableAddressColumn;
 
     /*Customer Table - Country.*/
     @FXML
-    public TableColumn<?, ?> customerTableCountryColumn;
+    public TableColumn<CustomerInfo, String> customerTableCountryColumn;
 
     /*Customer Table - Customer ID.*/
     @FXML
-    public TableColumn<?, ?> customerTableIDColumn;
+    public TableColumn<CustomerInfo, Integer> customerTableIDColumn;
 
     /*Customer Table - Name.*/
     @FXML
-    public TableColumn<?, ?> customerTableNameColumn;
+    public TableColumn<CustomerInfo, String> customerTableNameColumn;
 
     /*Customer Table - Phone.*/
     @FXML
-    public TableColumn<?, ?> customerTablePhoneColumn;
+    public TableColumn<CustomerInfo, String> customerTablePhoneColumn;
 
     /*Customer Table - Postal Code.*/
     @FXML
-    public TableColumn<?, ?> customerTablePostalCodeColumn;
+    public TableColumn<CustomerInfo, String> customerTablePostalCodeColumn;
 
     /*Customer Table - State.*/
     @FXML
-    public TableColumn<?, ?> customerTableStateColumn;
+    public TableColumn<CustomerInfo, String> customerTableStateColumn;
     
-    /* Getter for selected customer.*/
-    public static Customer getSelectedCustomer() {
+    // CUSTOMER INFO
+    
+    /*Selected customer.*/
+    private static CustomerInfo selectedCustomer;
+    
+    /* Get selected customer.*/
+    public static CustomerInfo getSelectedCustomer() {
         return selectedCustomer;
     }
     
@@ -96,13 +113,57 @@ public class CustomerTableController implements Initializable {
         stage.show();
     }
 
-    /*Delete Customer Button Action.
-    * Deletes selected customer if conditions are met.
+    /*Delete Customer.
+    * 
+    * Check if customer has an existing appointment.
+    * If they do, inform user that they need to delete the appointment first.  
     */
-    @FXML
-    void clickDeleteCustomer(ActionEvent event) {
-       
+        public static int getCustomerApptCount(int customerID) throws SQLException {
+        Statement customerApptCount = JDBC.getConnection().createStatement();
+        String modifySQL =
+                "SELECT COUNT(Appointment_ID) AS Count " +
+                "FROM appointments " +
+                "INNER JOIN customers ON customers.Customer_ID = appointments.Customer_ID " +
+                "WHERE customers.Customer_ID=" + customerID;
+
+        ResultSet apptCount = customerApptCount.executeQuery(modifySQL);
+
+        if(apptCount.next() && apptCount.getInt("Count") > 0) {
+            Alerts.errorAlert("CANNOT DELETE CUSTOMER",
+                    "Customer can't be deleted",
+                    "You must delete the existing appointments you have with this customer first");
+            return -1;
+        }
+        return 0;
     }
+    
+    /*Delete Customer button action.
+    * .  
+    */ 
+    @FXML
+    void clickDeleteCustomer(ActionEvent event) throws SQLException, IOException {
+        //Get selected customer
+        CustomerInfo selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+        //Alert user if selected customer doesn't exist
+        if(selectedCustomer == null) {
+            Alerts.alertDisplays(9);
+        } else if(getCustomerApptCount(selectedCustomer.getCustomerID()) == 0){
+            Alert confirmCustomerDelete = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmCustomerDelete.setHeaderText("Are you sure you want to delete this customer?");
+            confirmCustomerDelete.setContentText("This customer will be deleted from the database immediately. You can't undo this action.");
+            Optional<ButtonType> deleteResult = confirmCustomerDelete.showAndWait();
+
+            if(deleteResult.isPresent() && deleteResult.get() == ButtonType.OK) {
+                DBQueries.deleteFromCustomerTable(selectedCustomer.getCustomerID());
+                Alerts.alertDisplays(11);
+                stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/view/CustomerTable.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+            }
+        }
+    }
+
 
     /*Return to Main Menu Button Action.
     * Takes user back to Main Menu.
@@ -120,11 +181,21 @@ public class CustomerTableController implements Initializable {
     */
     @FXML
     void clickModifyCustomer(ActionEvent event) throws IOException {
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/modCustomer.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
-    }
+        //Get selected custoemr to modify
+         selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+        //Make sure user has selected a customer to modify
+        //If unselected, an alert will appear informing user to select customer
+        if(selectedCustomer == null) {
+            Alerts.errorAlert( "CANNOT MODIFY CUSTOMER", "No customer selected", "Please choose a customer to modify");
+        } 
+        //Else user will be taken to modCustomer screen 
+        else {
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/modCustomer.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
+    }    
     
     /**
      * Initializes the controller class.
