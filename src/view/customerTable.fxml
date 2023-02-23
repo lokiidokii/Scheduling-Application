@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerTableController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="490.0" prefWidth="861.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="controller.CustomerTableController">
+   <children>
+      <TableView layoutX="14.0" layoutY="41.0" prefHeight="375.0" prefWidth="832.0">
+        <columns>
+          <TableColumn fx:id="customerTableIDColumn" prefWidth="88.0" text="Customer ID" />
+          <TableColumn fx:id="customerTableNameColumn" prefWidth="165.0" text="Name" />
+            <TableColumn fx:id="customerTableAddressColumn" prefWidth="178.0" text="Address" />
+            <TableColumn fx:id="customerTableStateColumn" prefWidth="83.0" text="State" />
+            <TableColumn fx:id="customerTableCountryColumn" text="Country" />
+            <TableColumn fx:id="customerTablePostalCodeColumn" prefWidth="96.0" text="Postal Code" />
+            <TableColumn fx:id="customerTablePhoneColumn" prefWidth="141.0" text="Phone" />
+        </columns>
+      </TableView>
+      <Label layoutX="14.0" layoutY="6.0" text="Customer Information">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="585.0" layoutY="15.0" text="Current customer information from the database." />
+      <Button fx:id="addNewCustomerButton" layoutX="14.0" layoutY="447.0" mnemonicParsing="false" onAction="#clickAddCustomer" text="Add New Customer">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="14.0" layoutY="424.0" text="Update customer information by selecting the option you want to change:" />
+      <Button fx:id="modifyCustomerButton" layoutX="169.0" layoutY="447.0" mnemonicParsing="false" onAction="#clickModifyCustomer" text="Modify Customer Info">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="deleteCustomerButton" layoutX="340.0" layoutY="447.0" mnemonicParsing="false" onAction="#clickDeleteCustomer" text="Delete Customer">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="returnToMainMenu" layoutX="693.0" layoutY="441.0" mnemonicParsing="false" onAction="#clickMainMenu" text="Return To Main Menu">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
 </AnchorPane>
