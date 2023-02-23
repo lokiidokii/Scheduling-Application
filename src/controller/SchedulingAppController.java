@@ -101,7 +101,7 @@ public class SchedulingAppController implements Initializable {
     }
 
     /**
-     * Initializes the 15 min appointment reminder.
+     * Initialize 15 min appt reminder.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -113,7 +113,7 @@ public class SchedulingAppController implements Initializable {
     }    
     
     /*
-    * Display a 15 min appointment alert to user.
+    * Show 15 min appt reminder alert to user.
     */
     public void gets15MinApptReminder() throws SQLException {
         LocalDateTime localStart = LocalDateTime.now();
@@ -125,8 +125,8 @@ public class SchedulingAppController implements Initializable {
 
     /*
     * Search DB for coming appointments.
-    *@param now = current time
-    *@param end = within 15 min
+    *@param now = within 15 min
+    *@param end = within 45 min
     */
     public void apptReminder(Timestamp now, Timestamp end) throws SQLException {
         PreparedStatement apptIn15Min = JDBC.getConnection().prepareStatement(
@@ -135,15 +135,15 @@ public class SchedulingAppController implements Initializable {
             "INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID " +
             "WHERE Start BETWEEN ? AND ?");
        
-        apptIn15Min.setTimestamp(1, now);
-        apptIn15Min.setTimestamp(2, end);
+        apptIn15Min.setTimestamp(1, now); //appt within 15 min
+        apptIn15Min.setTimestamp(2, end); //appt within 45 min
 
         //Alert user whether or not they have an appointment within the next 15 minutes
         ResultSet appointmentResults = apptIn15Min.executeQuery();     
         //Appointment scheduled - alert user of Appt Id, who the appt is with, what the appt is about, and when it will be starting
         if(appointmentResults.next())  {
             Alerts.informationAlert("APPOINTMENT REMINDER  |  Your Appointment is Starting Soon!",
-                    ("Appointment "+ appointmentResults.getInt(("Appointment_ID")) + " is scheduled to start within 15 minutes. ") ,
+                    ("Appointment "+ appointmentResults.getInt(("Appointment_ID")) + " is scheduled to start within 15 minutes. "),
                     ("Your appointment is with " +
                         appointmentResults.getString("Contact_Name") +
                         " to talk about " + appointmentResults.getString("Type") + " . It will be starting at exactly" +
