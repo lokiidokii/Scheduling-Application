@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controller;
 
 import helper.JDBC;
@@ -83,7 +79,7 @@ public class SchedulingAppController implements Initializable {
     }
     
     /*Click Logout Button.
-    * Takes user to LoginScreen.
+    * Takes user to LoginScreen (where they are logged out).
     */
     @FXML
     void clickLoginMenu(ActionEvent event) throws IOException {
@@ -129,30 +125,32 @@ public class SchedulingAppController implements Initializable {
 
     /*
     * Search DB for coming appointments.
-    *@param now current time
-    *@param end within 15 min
+    *@param now = current time
+    *@param end = within 15 min
     */
     public void apptReminder(Timestamp now, Timestamp end) throws SQLException {
-
         PreparedStatement apptIn15Min = JDBC.getConnection().prepareStatement(
             "SELECT * " +
-                "FROM appointments " +
-                "INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID " +
-                "WHERE Start BETWEEN ? AND ?");
-
+            "FROM appointments " +
+            "INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID " +
+            "WHERE Start BETWEEN ? AND ?");
+       
         apptIn15Min.setTimestamp(1, now);
         apptIn15Min.setTimestamp(2, end);
 
-        ResultSet appointmentResults = apptIn15Min.executeQuery();
-
+        //Alert user whether or not they have an appointment within the next 15 minutes
+        ResultSet appointmentResults = apptIn15Min.executeQuery();     
+        //Appointment scheduled - alert user of Appt Id, who the appt is with, what the appt is about, and when it will be starting
         if(appointmentResults.next())  {
             Alerts.informationAlert("APPOINTMENT REMINDER  |  Your Appointment is Starting Soon!",
-                    ("Appointment ID = "+ appointmentResults.getInt(("Appointment_ID")) + " is scheduled to start within 15 minutes. ") ,
+                    ("Appointment "+ appointmentResults.getInt(("Appointment_ID")) + " is scheduled to start within 15 minutes. ") ,
                     ("Your appointment is with " +
                         appointmentResults.getString("Contact_Name") +
-                        " to talk about " + appointmentResults.getString("Type") + " . It will be starting at " +
+                        " to talk about " + appointmentResults.getString("Type") + " . It will be starting at exactly" +
                         appointmentResults.getTimestamp("Start").toLocalDateTime() + "."));
-            } else {
+            }
+          //No appointment scheduled 
+          else {
             Alerts.informationAlert("APPOINTMENT REMINDER  |  No Appointments Requiring Immediate Attention", "You have no appointments scheduled within the next 15 minutes.","");
         }
     }

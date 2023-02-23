@@ -28,7 +28,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 /**
- * FXML Controller class
+ * Login Screen Controller class.
  *
  * @author HannahBergman
  */
