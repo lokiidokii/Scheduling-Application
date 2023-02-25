@@ -127,7 +127,7 @@ public class CustomerTableController implements Initializable {
         ResultSet apptCount = customerApptCount.executeQuery(modifySQL);
 
         if(apptCount.next() && apptCount.getInt("Count") > 0) {
-            Alerts.errorAlert("Cannot Delete Customer", "Customer can't be deleted", "You must delete the existing appointments you have with this customer first.");
+            Alerts.errorAlert("ERROR  |  Cannot Delete Customer", "Customer can't be deleted", "You must delete the existing appointments you have with this customer first.");
             return -1;
         }
         return 0;
@@ -145,7 +145,7 @@ public class CustomerTableController implements Initializable {
             Alerts.alertDisplays(9);
         } else if(getCustomerApptCount(selectedCustomer.getCustomerID()) == 0){
             Alert confirmCustomerDelete = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmCustomerDelete.setHeaderText("Are you sure you want to delete this customer?");
+            confirmCustomerDelete.setHeaderText("CONFIRM  |  Are you sure you want to delete this customer?");
             confirmCustomerDelete.setContentText("This customer will be deleted from the database immediately. You can't undo this action.");
             Optional<ButtonType> deleteResult = confirmCustomerDelete.showAndWait();
 
@@ -182,7 +182,7 @@ public class CustomerTableController implements Initializable {
         //Make sure user has selected a customer to modify
         //If unselected, an alert will appear informing user to select customer
         if(selectedCustomer == null) {
-            Alerts.errorAlert( "Cannot Modify Customer", "No customer selected", "Please choose a customer to modify.");
+            Alerts.errorAlert( "ERROR  |  Cannot Modify Customer", "No customer selected", "Please choose a customer to modify.");
         } 
         //Else user will be taken to modCustomer screen 
         else {

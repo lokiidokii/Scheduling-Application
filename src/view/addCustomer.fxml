@@ -86,6 +86,6 @@
          </font>
       </Button>
       <ComboBox fx:id="countryComboBox" layoutX="145.0" layoutY="220.0" onAction="#clickCountryComboBox" prefHeight="30.0" prefWidth="220.0" promptText="Select customer's Country" />
-      <ComboBox fx:id="cityComboBox" layoutX="145.0" layoutY="262.0" onAction="#clickCityComboBox" prefHeight="30.0" prefWidth="220.0" promptText="Select customer's State" />
+      <ComboBox fx:id="stateComboBox" layoutX="145.0" layoutY="262.0" onAction="#clickStateComboBox" prefHeight="30.0" prefWidth="220.0" promptText="Select customer's State" />
    </children>
 </AnchorPane>

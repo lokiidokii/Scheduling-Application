@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.sql.*;
+import model.Alerts;
+import model.CustomerInfo;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,17 +21,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-
-import java.sql.*;
-
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Alerts;
-import model.CustomerInfo;
 
-/**
+/*
  * Add Customer Controller class.
  *
  * @author HannahBergman
@@ -55,7 +54,7 @@ public class AddCustomerController implements Initializable {
     private TextField addCustomerPostalCode;
     /*Add New - State Combo Box*/
     @FXML
-    private ComboBox<String> cityComboBox;
+    private ComboBox<String> stateComboBox;
     /*Add New - Country Combo Box*/
     @FXML
     private ComboBox<String> countryComboBox;
@@ -94,7 +93,7 @@ public class AddCustomerController implements Initializable {
             while (usStates.next()) {
                 String state = usStates.getString("Division");
                 statesList.add(state);
-                cityComboBox.setItems(statesList);
+                stateComboBox.setItems(statesList);
             }
             statement.close();
 
@@ -106,7 +105,7 @@ public class AddCustomerController implements Initializable {
             while (ukCountries.next()) {
                 String ukCountry = ukCountries.getString("Division");
                 statesList.add(ukCountry);
-                cityComboBox.setItems(statesList);
+                stateComboBox.setItems(statesList);
             }
             statement.close();
 
@@ -118,7 +117,7 @@ public class AddCustomerController implements Initializable {
             while (caProvinces.next()) {
                 String province = caProvinces.getString("Division");
                 statesList.add(province);
-                cityComboBox.setItems(statesList);
+                stateComboBox.setItems(statesList);
             }
             statement.close();
         }
@@ -160,10 +159,10 @@ public class AddCustomerController implements Initializable {
         String addAddress = addCustomerAddress.getText();
         String addPostalCode = addCustomerPostalCode.getText();
         String addPhoneNum = addCustomerPhoneNum.getText();
-        String addCity = cityComboBox.getSelectionModel().getSelectedItem();
+        String addState = stateComboBox.getSelectionModel().getSelectedItem();
         String addCountry = countryComboBox.getSelectionModel().getSelectedItem();
 
-        if (nameFieldFilled(addName) && addressFieldFilled(addAddress) && postalCodeFieldFilled(addPostalCode) && phoneNumFieldFilled(addPhoneNum) && countryPicked(addCountry) && cityPicked(addCity)) {
+        if (nameFieldFilled(addName) && addressFieldFilled(addAddress) && postalCodeFieldFilled(addPostalCode) && phoneNumFieldFilled(addPhoneNum) && countryPicked(addCountry) && statePicked(addState)) {
 
             DBQueries.insertIntoCustomerTable(addName, addAddress, addPhoneNum, addPostalCode, DataProvider.divisionID);
             Alerts.alertDisplays(6);
@@ -175,9 +174,7 @@ public class AddCustomerController implements Initializable {
     }
 
     
-    /**
-     * Fill the country Combo Box.
-     */
+    /* Fill the country Combo Box.*/
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         countryComboBox.setItems(countriesList);
@@ -185,8 +182,8 @@ public class AddCustomerController implements Initializable {
 
     /*States/provinces combo box dropdown.*/
     @FXML
-    public void clickCityComboBox(ActionEvent event) throws SQLException {
-        String stateSelected = cityComboBox.getSelectionModel().getSelectedItem();
+    public void clickStateComboBox(ActionEvent event) throws SQLException {
+        String stateSelected = stateComboBox.getSelectionModel().getSelectedItem();
 
         getAllStatesDivisionID(stateSelected);
         DataProvider.divisionID = stateDivisionID;
@@ -194,7 +191,7 @@ public class AddCustomerController implements Initializable {
     }
     
     /* Get cities from Division ID.
-    *@param comboBoxSelection Combo box selection.
+    *@param comboBoxSelection Combo box selection
     */
     public void getAllStatesDivisionID(String comboBoxSelection) throws SQLException {
         Statement state = JDBC.getConnection().createStatement();
@@ -261,11 +258,11 @@ public class AddCustomerController implements Initializable {
         return true;
     }
 
-    /* Check if the city (state/province) combo box is empty and alert user to select city if null.
-    * @param city 
+    /* Check if the state (state/province) combo box is empty and alert user to select state if null.
+    * @param state 
     */
-    public boolean cityPicked (String city) {
-        if (cityComboBox.getSelectionModel().getSelectedItem() == null) {
+    public boolean statePicked (String state) {
+        if (stateComboBox.getSelectionModel().getSelectedItem() == null) {
             Alerts.alertDisplays(3);
             return false;
         }
