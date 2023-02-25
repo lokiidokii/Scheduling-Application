@@ -14,8 +14,7 @@
           <TableColumn fx:id="customerTableIDColumn" prefWidth="88.0" text="Customer ID" />
           <TableColumn fx:id="customerTableNameColumn" prefWidth="159.0" text="Name" />
             <TableColumn fx:id="customerTableAddressColumn" prefWidth="157.0" text="Address" />
-            <TableColumn fx:id="customerTableCityColumn" prefWidth="105.0" text="City" />
-            <TableColumn fx:id="customerTableStateColumn" prefWidth="84.0" text="State" />
+            <TableColumn fx:id="customerTableCityColumn" prefWidth="105.0" text="Division" />
             <TableColumn fx:id="customerTableCountryColumn" prefWidth="90.0" text="Country" />
             <TableColumn fx:id="customerTablePostalCodeColumn" minWidth="0.0" prefWidth="116.0" text="Postal Code" />
             <TableColumn fx:id="customerTablePhoneColumn" prefWidth="210.0" text="Phone" />

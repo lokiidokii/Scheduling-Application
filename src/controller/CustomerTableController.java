@@ -51,7 +51,7 @@ public class CustomerTableController implements Initializable {
     
     /*Customer Table - City.*/
     @FXML
-    private TableColumn<?, ?> customerTableCityColumn;
+    private TableColumn<CustomerInfo, String> customerTableCityColumn;
 
     /*Customer Table - Country.*/
     @FXML
@@ -72,10 +72,6 @@ public class CustomerTableController implements Initializable {
     /*Customer Table - Postal Code.*/
     @FXML
     public TableColumn<CustomerInfo, String> customerTablePostalCodeColumn;
-
-    /*Customer Table - State.*/
-    @FXML
-    public TableColumn<CustomerInfo, String> customerTableStateColumn;
     
     // CUSTOMER INFO
     
@@ -113,7 +109,7 @@ public class CustomerTableController implements Initializable {
     @FXML
     void clickAddCustomer(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/AddCustomer.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/view/addCustomer.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
@@ -157,7 +153,7 @@ public class CustomerTableController implements Initializable {
                 DBQueries.deleteFromCustomerTable(selectedCustomer.getCustomerID());
                 Alerts.alertDisplays(11);
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-                scene = FXMLLoader.load(getClass().getResource("/view/CustomerTable.fxml"));
+                scene = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
                 stage.setScene(new Scene(scene));
                 stage.show();
             }
