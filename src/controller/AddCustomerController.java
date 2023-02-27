@@ -35,8 +35,8 @@ public class AddCustomerController implements Initializable {
     /* Scene variable*/
     Parent scene;
     /* Stage variable*/
-    
     Stage stage;
+    
     /*Add New - Customer Address*/
     @FXML
     private TextField addCustomerAddress;
@@ -134,9 +134,9 @@ public class AddCustomerController implements Initializable {
         confirmCancel.setTitle("ARE YOU SURE?  |  Cancel Customer Addition");
         confirmCancel.setHeaderText("Are you sure you want to return to the Customer Information menu?");
         confirmCancel.setContentText("All text fields will be cleared and any data currently entered will be lost if not saved");
-        Optional<ButtonType> cancelSelection = confirmCancel.showAndWait();
+        Optional<ButtonType> cancelAdd = confirmCancel.showAndWait();
         //If user presses OK to Cancel, they'll return to customerTable screen
-        if(cancelSelection.isPresent() && cancelSelection.get() == ButtonType.OK) {
+        if(cancelAdd.isPresent() && cancelAdd.get() == ButtonType.OK) {
             stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
             stage.setScene(new Scene(scene));
