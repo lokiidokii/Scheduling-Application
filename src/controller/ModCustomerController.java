@@ -1,9 +1,17 @@
 package controller;
 
+import helper.DBQueries;
+import helper.DataProvider;
+import helper.JDBC;
+
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +26,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.control.*;
+import model.Alerts;
+
+import model.CustomerInfo;
 
 /**
  * Modify Customer Form.
@@ -33,19 +45,19 @@ public class ModCustomerController implements Initializable {
     
     /*Add New - Customer Address.*/
     @FXML
-    private TextField addCustomerAddress;
+    private TextField modCustomerAddress;
     /*Add New - Customer Id.*/
     @FXML
-    private TextField addCustomerID;
+    private TextField modCustomerID;
     /*Add New - Customer Name.*/
     @FXML
-    private TextField addCustomerName;
+    private TextField modCustomerName;
     /*Add New - Customer Phone Number. */
     @FXML
-    private TextField addCustomerPhoneNum;
+    private TextField modCustomerPhoneNum;
     /*Add New - Customer Postal Code.*/
     @FXML
-    private TextField addCustomerPostalCode;
+    private TextField modCustomerPostalCode;
     
     /*Country Combo Box Dropdown.*/
     @FXML
@@ -57,14 +69,17 @@ public class ModCustomerController implements Initializable {
     /*Division ID From selected state*/
     public int stateDivisionID;
     
+    /*Selected customer.*/
+    CustomerInfo selectedCustomer;
+    
     // BUTTONS
     
     /*Save Customer Updates Button*/
     @FXML
-    private Button saveNewCustomerButton;
+    private Button saveModCustomerButton;
     /*Cancel Changes Button.*/
     @FXML
-    private Button cancelAddCustomerButton;
+    private Button cancelModCustomerButton;
     
     //Observable Lists
     /*Observable List for states.*/
@@ -76,10 +91,49 @@ public class ModCustomerController implements Initializable {
     
     /*Clicking on the country combobox dropdown*/
     @FXML
-    void clickCountryComboBox(ActionEvent event) {
-        
+    void clickCountryComboBox(ActionEvent event) throws SQLException {
+        String countrySelection = countryComboBox.getSelectionModel().getSelectedItem();
+
+        //Populating US states into states combo box
+        if(countrySelection.equals("United States")) {
+            Statement statement = JDBC.getConnection().createStatement();
+            String getStatesSQL = "SELECT * FROM first_level_divisions WHERE COUNTRY_ID = 1";
+            ResultSet usStates = statement.executeQuery(getStatesSQL);
+
+            while (usStates.next()) {
+                String state = usStates.getString("Division");
+                statesList.add(state);
+                stateComboBox.setItems(statesList);
+            }
+            statement.close();
+
+        } else if(countrySelection.equals("United Kingdom")) {
+            Statement statement = JDBC.getConnection().createStatement();
+            String getStatesSQL = "SELECT * FROM first_level_divisions WHERE COUNTRY_ID = 2";
+            ResultSet ukCountries = statement.executeQuery(getStatesSQL);
+
+            while (ukCountries.next()) {
+                String ukCountry = ukCountries.getString("Division");
+                statesList.add(ukCountry);
+                stateComboBox.setItems(statesList);
+            }
+            statement.close();
+
+        } else {
+            Statement statement = JDBC.getConnection().createStatement();
+            String getStatesSQL = "SELECT * FROM first_level_divisions WHERE COUNTRY_ID = 3";
+            ResultSet caProvinces = statement.executeQuery(getStatesSQL);
+
+            while (caProvinces.next()) {
+                String province = caProvinces.getString("Division");
+                statesList.add(province);
+                stateComboBox.setItems(statesList);
+            }
+            statement.close();
+        }  
     }
 
+    /*Clicking cancel - go back to customer table.*/
     @FXML
     void clickCustomerTable(ActionEvent event) throws IOException {
         //Alert user that data will be lost if they want to cancel
@@ -97,21 +151,58 @@ public class ModCustomerController implements Initializable {
         }
     }
 
+    /*Click save - save customer modifications.*/
     @FXML
-    void clickSaveNewCustomer(ActionEvent event) {
+    void clickSaveModCustomer(ActionEvent event) throws SQLException, IOException {
+        String customerName = modCustomerName.getText();
+        String customerAddress = modCustomerAddress.getText();
+        String customerPostalCode = modCustomerPostalCode.getText();
+        String customerPhone = modCustomerPhoneNum.getText();
 
+        DBQueries.updateCustomerTable(selectedCustomer.getCustomerID(), customerName, customerAddress, customerPostalCode, customerPhone, DataProvider.divisionID);
+            Alerts.alertDisplays(6);
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();    
     }
 
+    /*Click state combo box - select state/province to modify.*/
     @FXML
-    void clickStateComboBox(ActionEvent event) {
+    void clickStateComboBox(ActionEvent event) throws SQLException {
+       String stateSelected = stateComboBox.getSelectionModel().getSelectedItem();
 
+        getAllStatesDivisionID(stateSelected);
+        DataProvider.divisionID = stateDivisionID;
+    }
+    
+        /* Get cities from Division ID.
+    *@param comboBoxSelection Combo box selection
+    */
+    public void getAllStatesDivisionID(String comboBoxSelection) throws SQLException {
+        Statement state = JDBC.getConnection().createStatement();
+        String getAllStatesDivisionIDSQL = "SELECT Division_ID FROM first_level_divisions WHERE Division='" + comboBoxSelection + "'";
+        ResultSet result = state.executeQuery(getAllStatesDivisionIDSQL);
+
+        while(result.next()) {
+            stateDivisionID = result.getInt("Division_ID");
+        }
     }
     /**
-     * Initialize the controller class.
+     * Fill in the fields with information to modify from the selected customer.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        countryComboBox.setItems(countriesList);
+        selectedCustomer = CustomerTableController.getSelectedCustomer();
+
+        modCustomerID.setText(String.valueOf(selectedCustomer.getCustomerID()));
+        modCustomerName.setText(selectedCustomer.getCustomerName());
+        modCustomerAddress.setText(selectedCustomer.getAddress());
+        modCustomerPostalCode.setText(selectedCustomer.getPostalCode());
+        modCustomerPhoneNum.setText(selectedCustomer.getPhoneNumber());
+        countryComboBox.setValue(selectedCustomer.getCountry());
+        stateComboBox.setValue(selectedCustomer.getCity());
     }    
     
 }
