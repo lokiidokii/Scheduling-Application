@@ -45,19 +45,19 @@ public class ModCustomerController implements Initializable {
     
     /*Add New - Customer Address.*/
     @FXML
-    private TextField modCustomerAddress;
+    private TextField addressTxtFld;
     /*Add New - Customer Id.*/
     @FXML
-    private TextField modCustomerID;
+    private TextField idTextFld;
     /*Add New - Customer Name.*/
     @FXML
-    private TextField modCustomerName;
+    private TextField nameTxtFld;
     /*Add New - Customer Phone Number. */
     @FXML
-    private TextField modCustomerPhoneNum;
+    private TextField phoneTxtFld;
     /*Add New - Customer Postal Code.*/
     @FXML
-    private TextField modCustomerPostalCode;
+    private TextField postalTxtFld;
     
     /*Country Combo Box Dropdown.*/
     @FXML
@@ -76,16 +76,33 @@ public class ModCustomerController implements Initializable {
     
     /*Save Customer Updates Button*/
     @FXML
-    private Button saveModCustomerButton;
+    private Button saveCustomerButton;
     /*Cancel Changes Button.*/
     @FXML
-    private Button cancelModCustomerButton;
+    private Button cancelCustomerButton;
     
     //Observable Lists
     /*Observable List for states.*/
     ObservableList<String> statesList = FXCollections.observableArrayList();
     /*Observable List for countries.*/
     ObservableList<String> countriesList = FXCollections.observableArrayList("United States", "Canada", "United Kingdom");
+    
+    /*
+     * Fill in the fields with information to modify from the selected customer.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        countryComboBox.setItems(countriesList);
+        selectedCustomer = CustomerTableController.getSelectedCustomer();
+
+        idTextFld.setText(String.valueOf(selectedCustomer.getCustomerID()));
+        nameTxtFld.setText(selectedCustomer.getCustomerName());
+        addressTxtFld.setText(selectedCustomer.getAddress());
+        postalTxtFld.setText(selectedCustomer.getPostalCode());
+        phoneTxtFld.setText(selectedCustomer.getPhoneNumber());
+        countryComboBox.setValue(selectedCustomer.getCountry());
+        stateComboBox.setValue(selectedCustomer.getCity());
+    }    
     
     // BUTTON ACTIONS
     
@@ -151,20 +168,31 @@ public class ModCustomerController implements Initializable {
         }
     }
 
+     /* 
+    * Change screen.
+    * @param actionEvent Action event
+    * @param resourcesString Screen link 
+     */
+    public void changeScreen(ActionEvent event, String resourcesString) throws IOException {
+        //Resources example: "/view/mainMenu.fxml"
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource(resourcesString));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+    
     /*Click save - save customer modifications.*/
     @FXML
-    void clickSaveModCustomer(ActionEvent event) throws SQLException, IOException {
-        String customerName = modCustomerName.getText();
-        String customerAddress = modCustomerAddress.getText();
-        String customerPostalCode = modCustomerPostalCode.getText();
-        String customerPhone = modCustomerPhoneNum.getText();
-
+    public void clickSaveCustomer(ActionEvent event) throws SQLException, IOException {
+        String customerId = idTextFld.getText();
+        String customerName = nameTxtFld.getText();
+        String customerAddress = addressTxtFld.getText();
+        String customerPostalCode = postalTxtFld.getText();
+        String customerPhone = phoneTxtFld.getText();
+        
         DBQueries.updateCustomerTable(selectedCustomer.getCustomerID(), customerName, customerAddress, customerPostalCode, customerPhone, DataProvider.divisionID);
-            Alerts.alertDisplays(6);
-            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
-            stage.setScene(new Scene(scene));
-            stage.show();    
+        Alerts.alertDisplays(6);
+        changeScreen(event, "/view/customerTable.fxml");   
     }
 
     /*Click state combo box - select state/province to modify.*/
@@ -176,7 +204,7 @@ public class ModCustomerController implements Initializable {
         DataProvider.divisionID = stateDivisionID;
     }
     
-        /* Get cities from Division ID.
+    /* Get cities from Division ID.
     *@param comboBoxSelection Combo box selection
     */
     public void getAllStatesDivisionID(String comboBoxSelection) throws SQLException {
@@ -188,21 +216,4 @@ public class ModCustomerController implements Initializable {
             stateDivisionID = result.getInt("Division_ID");
         }
     }
-    /**
-     * Fill in the fields with information to modify from the selected customer.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        countryComboBox.setItems(countriesList);
-        selectedCustomer = CustomerTableController.getSelectedCustomer();
-
-        modCustomerID.setText(String.valueOf(selectedCustomer.getCustomerID()));
-        modCustomerName.setText(selectedCustomer.getCustomerName());
-        modCustomerAddress.setText(selectedCustomer.getAddress());
-        modCustomerPostalCode.setText(selectedCustomer.getPostalCode());
-        modCustomerPhoneNum.setText(selectedCustomer.getPhoneNumber());
-        countryComboBox.setValue(selectedCustomer.getCountry());
-        stateComboBox.setValue(selectedCustomer.getCity());
-    }    
-    
 }

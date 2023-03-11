@@ -39,25 +39,25 @@ public class AddCustomerController implements Initializable {
     
     /*Add New - Customer Address*/
     @FXML
-    private TextField addCustomerAddress;
+    public TextField addressTxtFld;
     /*Add New - Customer ID*/
     @FXML
-    private TextField addCustomerID;
+    public TextField idTextFld;
     /*Add New - Customer Name*/
     @FXML
-    private TextField addCustomerName;
+    public TextField nameTxtFld;
     /*Add New - Customer Phone Number*/
     @FXML
-    private TextField addCustomerPhoneNum;
+    public TextField phoneTxtFld;
     /*Add New - Customer Postal Code*/
     @FXML
-    private TextField addCustomerPostalCode;
+    public TextField postalTxtFld;
     /*Add New - State Combo Box*/
     @FXML
-    private ComboBox<String> stateComboBox;
+    public ComboBox<String> stateComboBox;
     /*Add New - Country Combo Box*/
     @FXML
-    private ComboBox<String> countryComboBox;
+    public ComboBox<String> countryComboBox;
     /*Division ID From selected state*/
     public int stateDivisionID;
 
@@ -66,10 +66,10 @@ public class AddCustomerController implements Initializable {
     
     /*Cancel Add Customer Button*/
     @FXML
-    private Button cancelAddCustomerButton;
+    private Button cancelCustomerButton;
     /*Save New Customer Button*/
     @FXML
-    private Button saveNewCustomerButton;
+    private Button saveCustomerButton;
     
     //Observable Lists
     /*Observable List for states.*/
@@ -148,23 +148,24 @@ public class AddCustomerController implements Initializable {
     * Update database with new customer values then return back to customer table.
     */
     @FXML
-    void clickSaveNewCustomer(ActionEvent event) throws IOException, SQLException {
+    void clickSaveCustomer(ActionEvent event) throws IOException, SQLException {
        int customerID = 0;
         for (CustomerInfo customer : CustomerInfo.getGetAllCustomers()) {
             if (customer.getCustomerID() > customerID) {
                 customerID = customer.getCustomerID();
             }
         }
-        String addName = addCustomerName.getText();
-        String addAddress = addCustomerAddress.getText();
-        String addPostalCode = addCustomerPostalCode.getText();
-        String addPhoneNum = addCustomerPhoneNum.getText();
-        String addState = stateComboBox.getSelectionModel().getSelectedItem();
-        String addCountry = countryComboBox.getSelectionModel().getSelectedItem();
+        
+        String customerName = nameTxtFld.getText();
+        String customerAddress = addressTxtFld.getText();
+        String customerPostalCode = postalTxtFld.getText();
+        String customerPhoneNumber = phoneTxtFld.getText();
+        String customerCity = stateComboBox.getSelectionModel().getSelectedItem();
+        String customerCountry = countryComboBox.getSelectionModel().getSelectedItem();
 
-        if (nameFieldFilled(addName) && addressFieldFilled(addAddress) && postalCodeFieldFilled(addPostalCode) && phoneNumFieldFilled(addPhoneNum) && countryPicked(addCountry) && statePicked(addState)) {
+        if (nameFieldFilled(customerName) && addressFieldFilled(customerAddress) && postalCodeFieldFilled(customerPostalCode) && phoneNumFieldFilled(customerPhoneNumber) && countryPicked(customerCity) && statePicked(customerCountry)) {
 
-            DBQueries.insertIntoCustomerTable(addName, addAddress, addPhoneNum, addPostalCode, DataProvider.divisionID);
+            DBQueries.insertIntoCustomerTable(customerName, customerAddress, customerPhoneNumber, customerPostalCode, DataProvider.divisionID);
             Alerts.alertDisplays(6);
             stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
@@ -207,7 +208,7 @@ public class AddCustomerController implements Initializable {
     * @param name 
     */
     public boolean nameFieldFilled(String name) {
-        if (addCustomerName.getText().isEmpty()) {
+        if (nameTxtFld.getText().isEmpty()) {
             Alerts.alertDisplays(1);
             return false;
         }
@@ -218,7 +219,7 @@ public class AddCustomerController implements Initializable {
     * @param address 
     */
     public boolean addressFieldFilled(String address) {
-        if (addCustomerAddress.getText().isEmpty()) {
+        if (addressTxtFld.getText().isEmpty()) {
             Alerts.alertDisplays(2);
             return false;
         }
@@ -229,7 +230,7 @@ public class AddCustomerController implements Initializable {
     * @param postalCode 
     */
     public boolean postalCodeFieldFilled(String postalCode) {
-        if (addCustomerPostalCode.getText().isEmpty()) {
+        if (postalTxtFld.getText().isEmpty()) {
             Alerts.alertDisplays(4);
             return false;
         }
@@ -240,7 +241,7 @@ public class AddCustomerController implements Initializable {
     * @param phone 
     */
     public boolean phoneNumFieldFilled(String phone) {
-        if (addCustomerPhoneNum.getText().isEmpty()) {
+        if (phoneTxtFld.getText().isEmpty()) {
             Alerts.alertDisplays(5);
             return false;
         }

@@ -15,7 +15,7 @@
          </font>
       </Label>
       <Label layoutX="21.0" layoutY="56.0" text="Fill out the information below to add a new customer to the database." />
-      <TextField fx:id="addCustomerID" editable="false" layoutX="145.0" layoutY="97.0" opacity="0.26" prefHeight="28.0" prefWidth="357.0" text="Automatically Generated">
+      <TextField fx:id="idTextFld" editable="false" layoutX="145.0" layoutY="97.0" opacity="0.26" prefHeight="28.0" prefWidth="357.0" text="Automatically Generated">
          <font>
             <Font size="14.0" />
          </font>
@@ -25,7 +25,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="addCustomerName" layoutX="145.0" layoutY="137.0" prefHeight="28.0" prefWidth="357.0">
+      <TextField fx:id="nameTxtFld" layoutX="145.0" layoutY="137.0" prefHeight="28.0" prefWidth="357.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -35,7 +35,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="addCustomerAddress" layoutX="145.0" layoutY="178.0" prefHeight="28.0" prefWidth="357.0">
+      <TextField fx:id="addressTxtFld" layoutX="145.0" layoutY="178.0" prefHeight="28.0" prefWidth="357.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -55,7 +55,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="addCustomerPostalCode" layoutX="145.0" layoutY="303.0" prefHeight="28.0" prefWidth="357.0">
+      <TextField fx:id="postalTxtFld" layoutX="145.0" layoutY="303.0" prefHeight="28.0" prefWidth="357.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -65,7 +65,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="addCustomerPhoneNum" layoutX="145.0" layoutY="345.0" prefHeight="28.0" prefWidth="357.0">
+      <TextField fx:id="phoneTxtFld" layoutX="145.0" layoutY="345.0" prefHeight="28.0" prefWidth="357.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -75,12 +75,12 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="saveNewCustomerButton" layoutX="350.0" layoutY="393.0" mnemonicParsing="false" onAction="#clickSaveNewCustomer" text="Save New Customer">
+      <Button fx:id="saveCustomerButton" layoutX="350.0" layoutY="393.0" mnemonicParsing="false" onAction="#clickSaveCustomer" text="Save New Customer">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="cancelAddCustomerButton" layoutX="445.0" layoutY="21.0" mnemonicParsing="false" onAction="#clickCustomerTable" text="Cancel">
+      <Button fx:id="cancelCustomerButton" layoutX="445.0" layoutY="21.0" mnemonicParsing="false" onAction="#clickCustomerTable" text="Cancel">
          <font>
             <Font size="16.0" />
          </font>
