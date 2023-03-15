@@ -41,7 +41,7 @@ public class CustomerTableController implements Initializable {
     
     // TABLE COLUMN INFO
     
-    /**/
+    /*Customer Table.*/
     @FXML
     public TableView<CustomerInfo> customerTable;
     
