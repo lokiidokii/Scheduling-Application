@@ -1,9 +1,5 @@
 package controller;
 
-import helper.DBQueries;
-import helper.JDBC;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,21 +12,26 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
-import model.Appointments;
-import java.sql.SQLException;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Optional;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import model.Alerts;
+import model.Appointments;
+import helper.DBQueries;
+import helper.JDBC;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.sql.SQLException;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.Optional;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javafx.scene.control.cell.PropertyValueFactory;
-import model.Alerts;
 
 /**
  * FXML Controller class

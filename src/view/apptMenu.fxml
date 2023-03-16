@@ -24,15 +24,15 @@
       <TableView fx:id="appointmentsTable" layoutX="11.0" layoutY="93.0" prefHeight="385.0" prefWidth="1084.0">
         <columns>
           <TableColumn fx:id="appointmentIDColumn" prefWidth="105.0" text="Appointment ID" />
-          <TableColumn fx:id="titleColumn" minWidth="0.0" prefWidth="78.0" text="Title" />
-            <TableColumn fx:id="descriptionColumn" prefWidth="129.0" text="Description" />
-            <TableColumn fx:id="locationColumn" prefWidth="103.0" text="Location" />
-            <TableColumn fx:id="contactColumn" prefWidth="179.0" text="Contact" />
-            <TableColumn fx:id="typeColumn" prefWidth="121.0" text="Type" />
-            <TableColumn fx:id="startColumn" prefWidth="96.0" text="Start" />
-            <TableColumn fx:id="endColumn" prefWidth="97.0" text="End" />
-            <TableColumn fx:id="customerIDColumn" prefWidth="98.0" text="Customer_ID" />
-            <TableColumn fx:id="userIDColumn" prefWidth="77.0" text="User_ID" />
+          <TableColumn fx:id="titleColumn" minWidth="0.0" prefWidth="104.0" text="Meeting" />
+            <TableColumn fx:id="descriptionColumn" prefWidth="172.0" text="Topic To Discuss" />
+            <TableColumn fx:id="locationColumn" prefWidth="77.0" text="Location" />
+            <TableColumn fx:id="contactColumn" prefWidth="150.0" text="Client Name" />
+            <TableColumn fx:id="typeColumn" prefWidth="107.0" text="Meeting Type" />
+            <TableColumn fx:id="startColumn" prefWidth="113.0" text="Start Date/Time" />
+            <TableColumn fx:id="endColumn" prefWidth="106.0" text="End Date/Time" />
+            <TableColumn fx:id="customerIDColumn" prefWidth="89.0" text="Customer_ID" />
+            <TableColumn fx:id="userIDColumn" prefWidth="60.0" text="User_ID" />
         </columns>
       </TableView>
       <Label layoutX="14.0" layoutY="46.0" text="All appointments are shown by default. " />
