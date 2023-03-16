@@ -171,7 +171,7 @@ public class Appointments {
 
     /** Getter to get all appointment from the database
      @return allAppointmentsList*/
-    public static ObservableList<Appointments> getGetAllAppointments() throws SQLException {
+    public static ObservableList<Appointments> getGetAllAppts() throws SQLException {
 
         Statement statement = JDBC.getConnection().createStatement();
         String appointmentInfoSQL = "SELECT appointments.*, contacts.* FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID";
