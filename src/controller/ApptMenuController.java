@@ -374,7 +374,6 @@ public class ApptMenuController implements Initializable {
     }
     
     /**
-     * Fill appointment table with relevant info.
      * Lambda expression used: fill contact name in appointments table.
      */
     @Override

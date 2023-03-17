@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import javafx.scene.control.Alert;
@@ -11,8 +7,7 @@ import javafx.scene.control.Alert;
  * @author HannahBergman
  */
 public class Alerts {
-    /** Error Alert.
-     Lambda is used here to set the header of the error alert.
+    /** Lambda expression used: set header of the error alert.
      @param title alert title.
      @param header header of alert.
      @param content content of alert message. 
@@ -89,7 +84,7 @@ public class Alerts {
                 alertForSave.showAndWait();
                 break;
             case 8:
-                alertForSave.setTitle("ARE YOU SURE  || DELETE CUSTOMER");
+                alertForSave.setTitle("ARE YOU SURE  |  DELETE CUSTOMER");
                 alertForSave.setHeaderText("Delete this customer?");
                 alertForSave.setContentText("This is action is permanent and will delete the customer's saved information and any associated appointments you have with them");
                 alertForSave.showAndWait();

@@ -102,7 +102,7 @@ public class AddApptController implements Initializable {
     /*Observable List for users customers*/
     public static ObservableList<Integer> userIDOL = FXCollections.observableArrayList();
     /*Observable List for types customers*/
-    private ObservableList<String> typeOL = FXCollections.observableArrayList("Remote - Conference Call", "In-Office", "Remote - Video", "Remote - On-Site");
+    private ObservableList<String> typeOL = FXCollections.observableArrayList("In-Office", "Remote - Conference Call", "Remote - On-Site", "Remote - Video");
     
     // BUTTONS
     /*Main Menu Button.*/
