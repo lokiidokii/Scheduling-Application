@@ -11,7 +11,7 @@ import model.Alerts;
 
 /**
  *
- * @author LabUser
+ * @author HannahBergman
  */
 public class TimeZones {
      /** ObservableList for appointment times.*/
@@ -39,14 +39,14 @@ public class TimeZones {
         if(estStartZDT.toLocalDateTime().toLocalTime().isBefore(LocalTime.of(8,0)) ||
                 estStartZDT.toLocalDateTime().toLocalTime().isAfter(LocalTime.of(22,0))) {
 
-            Alerts.errorAlert("Outside Business Hours", "Business hours are 8am - 10pm eastern",
-                    "Please select a start time within business hours");
+            Alerts.errorAlert("APPOINTMENT CANNOT BE MADE OUTSIDE OF BUSINESS HOURS", "Our business hours are 8:00am to 10:00pm EST",
+                    "Please select a valid start time for your appointment");
          return true;
         } else if(estEndZDT.toLocalDateTime().toLocalTime().isBefore(LocalTime.of(8,0)) ||
                 estEndZDT.toLocalDateTime().toLocalTime().isAfter(LocalTime.of(22,0))) {
 
-            Alerts.errorAlert("Outside Business Hours", "Business hours are 8am - 10pm eastern",
-                    "Please select an end time within business hours");
+            Alerts.errorAlert("APPOINTMENT CANNOT BE MADE OUTSIDE OF BUSINESS HOURS", "Our business hours are 8:00am to 10:00pm EST",
+                    "Please select a valid end time for your appointment");
             return true;
         }
         return false;
