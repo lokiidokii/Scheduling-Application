@@ -147,10 +147,10 @@ public class AddApptController implements Initializable {
         boolean endEqualsStart = end.equals(start);
 
         if(endBeforeStart) {
-            Alerts.alertDisplays(24);
+            Alerts.displayAlert(24);
             return false;
         } else if(endEqualsStart) {
-            Alerts.alertDisplays(25);
+            Alerts.displayAlert(25);
             return false;
         }
 
@@ -175,7 +175,7 @@ public class AddApptController implements Initializable {
             ResultSet checkApptValidation = validAppointmentStatement.executeQuery(validApptSQL);
 
             if(checkApptValidation.next()) {
-                Alerts.alertDisplays(26);
+                Alerts.displayAlert(26);
                 return false;
             }
         } catch (SQLException se) {
@@ -210,23 +210,23 @@ public class AddApptController implements Initializable {
                     contactNotNull(contactId) && userIdNotNull(userID) && timeValidation(startTimestamp, endTimestamp) && !outsideBusinessHours) {
 
                 DBQueries.insertAppt(titleInfo, descInfo, locationInfo, typeInfo, startTimestamp, endTimestamp, custID, userID, contactInfo);
-                Alerts.alertDisplays(23);
+                Alerts.displayAlert(23);
                 switchScreen(event, "/view/apptMenu.fxml");
             }
 
         } catch (Exception e) {
             if (customerIDTxtFld.getText() == null) {
-                Alerts.alertDisplays(20);
+                Alerts.displayAlert(20);
             } else if (userIDComboBox.getSelectionModel().getSelectedItem() == null) {
-                Alerts.alertDisplays(21);
+                Alerts.displayAlert(21);
             } else if (datePicker.getValue() == null) {
-                Alerts.alertDisplays(17);
+                Alerts.displayAlert(17);
             } else if (startTimeComboBox.getSelectionModel().getSelectedItem() == null) {
-                Alerts.alertDisplays(18);
+                Alerts.displayAlert(18);
             } else if (endTimeComboBox.getValue() == null) {
-                Alerts.alertDisplays(19);
+                Alerts.displayAlert(19);
             } else if (customerComboBox.getValue() == null) {
-                Alerts.alertDisplays(20);
+                Alerts.displayAlert(20);
             }
         }
     }
@@ -389,7 +389,7 @@ public class AddApptController implements Initializable {
      */
     public boolean titleNotNull(String title) {
         if (titleTxtFld.getText().isEmpty()) {
-            Alerts.alertDisplays(13);
+            Alerts.displayAlert(13);
             return false;
         }
         return true;
@@ -400,7 +400,7 @@ public class AddApptController implements Initializable {
      */
     public boolean descriptionNotNull(String desciption) {
         if (descriptionTxtFld.getText().isEmpty()) {
-            Alerts.alertDisplays(14);
+            Alerts.displayAlert(14);
             return false;
         }
         return true;
@@ -411,7 +411,7 @@ public class AddApptController implements Initializable {
      */
     public boolean typeNotNull(String type) {
         if (typeComboBox.getSelectionModel().getSelectedItem() == null) {
-            Alerts.alertDisplays(16);
+            Alerts.displayAlert(16);
             return false;
         }
         return true;
@@ -421,7 +421,7 @@ public class AddApptController implements Initializable {
      @param location The text in the location*/
     public boolean locationNotNull(String location) {
         if (locationTxtFld.getText().isEmpty()) {
-            Alerts.alertDisplays(15);
+            Alerts.displayAlert(15);
             return false;
         }
         return true;
@@ -432,7 +432,7 @@ public class AddApptController implements Initializable {
      */
     public boolean startNotNull(Timestamp start) {
         if (startTimeComboBox.getSelectionModel().getSelectedItem() == null) {
-            Alerts.alertDisplays(18);
+            Alerts.displayAlert(18);
             return false;
         }
         return true;
@@ -443,7 +443,7 @@ public class AddApptController implements Initializable {
      */
     public boolean endNotNull(Timestamp end) {
         if (endTimeComboBox.getSelectionModel().getSelectedItem() == null) {
-            Alerts.alertDisplays(19);
+            Alerts.displayAlert(19);
             return false;
         }
         return true;
@@ -454,7 +454,7 @@ public class AddApptController implements Initializable {
      */
     public boolean dateNotNull(LocalDate date) {
         if (datePicker.getValue() == null) {
-            Alerts.alertDisplays(17);
+            Alerts.displayAlert(17);
             return false;
         }
         return true;
@@ -465,7 +465,7 @@ public class AddApptController implements Initializable {
      */
     public boolean customerNotNull(int customerId) {
         if (customerComboBox.getSelectionModel().getSelectedItem() == null) {
-            Alerts.alertDisplays(20);
+            Alerts.displayAlert(20);
             return false;
         }
         return true;
@@ -476,7 +476,7 @@ public class AddApptController implements Initializable {
      */
     public boolean userIdNotNull(int userId) {
         if (userIDComboBox.getSelectionModel().getSelectedItem() == null) {
-            Alerts.alertDisplays(21);
+            Alerts.displayAlert(21);
             return false;
         }
         return true;
@@ -487,7 +487,7 @@ public class AddApptController implements Initializable {
      */
     public boolean contactNotNull(int contact) {
         if (contactComboBox.getSelectionModel().getSelectedItem() == null) {
-            Alerts.alertDisplays(22);
+            Alerts.displayAlert(22);
             return false;
         }
         return true;

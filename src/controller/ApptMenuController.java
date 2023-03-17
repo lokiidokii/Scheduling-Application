@@ -170,7 +170,7 @@ public class ApptMenuController implements Initializable {
 
         if(selectedAppointment == null) {
             //Make sure user selects an appointment to modify
-            Alerts.alertDisplays(9);
+            Alerts.displayAlert(9);
         } else 
             //Inform user that appointment will be permaently removed
         {

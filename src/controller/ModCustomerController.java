@@ -191,7 +191,7 @@ public class ModCustomerController implements Initializable {
         String customerPhone = phoneTxtFld.getText();
         
         DBQueries.updateCustomerTable(selectedCustomer.getCustomerID(), customerName, customerAddress, customerPostalCode, customerPhone, DataProvider.divisionID);
-        Alerts.alertDisplays(6);
+        Alerts.displayAlert(6);
         changeScreen(event, "/view/customerTable.fxml");   
     }
 

@@ -166,7 +166,7 @@ public class AddCustomerController implements Initializable {
         if (nameFieldFilled(customerName) && addressFieldFilled(customerAddress) && postalCodeFieldFilled(customerPostalCode) && phoneNumFieldFilled(customerPhoneNumber) && countryPicked(customerCity) && statePicked(customerCountry)) {
 
             DBQueries.insertIntoCustomerTable(customerName, customerAddress, customerPhoneNumber, customerPostalCode, DataProvider.divisionID);
-            Alerts.alertDisplays(6);
+            Alerts.displayAlert(6);
             stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
             stage.setScene(new Scene(scene));
@@ -209,7 +209,7 @@ public class AddCustomerController implements Initializable {
     */
     public boolean nameFieldFilled(String name) {
         if (nameTxtFld.getText().isEmpty()) {
-            Alerts.alertDisplays(1);
+            Alerts.displayAlert(1);
             return false;
         }
         return true;
@@ -220,7 +220,7 @@ public class AddCustomerController implements Initializable {
     */
     public boolean addressFieldFilled(String address) {
         if (addressTxtFld.getText().isEmpty()) {
-            Alerts.alertDisplays(2);
+            Alerts.displayAlert(2);
             return false;
         }
         return true;
@@ -231,7 +231,7 @@ public class AddCustomerController implements Initializable {
     */
     public boolean postalCodeFieldFilled(String postalCode) {
         if (postalTxtFld.getText().isEmpty()) {
-            Alerts.alertDisplays(4);
+            Alerts.displayAlert(4);
             return false;
         }
         return true;
@@ -242,7 +242,7 @@ public class AddCustomerController implements Initializable {
     */
     public boolean phoneNumFieldFilled(String phone) {
         if (phoneTxtFld.getText().isEmpty()) {
-            Alerts.alertDisplays(5);
+            Alerts.displayAlert(5);
             return false;
         }
         return true;
@@ -253,7 +253,7 @@ public class AddCustomerController implements Initializable {
     */
     public boolean countryPicked(String country) {
         if (countryComboBox.getSelectionModel().getSelectedItem() == null) {
-            Alerts.alertDisplays(10);
+            Alerts.displayAlert(10);
             return false;
         }
         return true;
@@ -264,7 +264,7 @@ public class AddCustomerController implements Initializable {
     */
     public boolean statePicked (String state) {
         if (stateComboBox.getSelectionModel().getSelectedItem() == null) {
-            Alerts.alertDisplays(3);
+            Alerts.displayAlert(3);
             return false;
         }
         return true;

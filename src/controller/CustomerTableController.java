@@ -142,7 +142,7 @@ public class CustomerTableController implements Initializable {
         CustomerInfo selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
         //Alert user if selected customer doesn't exist
         if(selectedCustomer == null) {
-            Alerts.alertDisplays(9);
+            Alerts.displayAlert(9);
         } else if(getCustomerApptCount(selectedCustomer.getCustomerID()) == 0){
             Alert confirmCustomerDelete = new Alert(Alert.AlertType.CONFIRMATION);
             confirmCustomerDelete.setHeaderText("CONFIRM  |  Are you sure you want to delete this customer?");
@@ -151,7 +151,7 @@ public class CustomerTableController implements Initializable {
 
             if(deleteResult.isPresent() && deleteResult.get() == ButtonType.OK) {
                 DBQueries.deleteFromCustomerTable(selectedCustomer.getCustomerID());
-                Alerts.alertDisplays(11);
+                Alerts.displayAlert(11);
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
                 stage.setScene(new Scene(scene));

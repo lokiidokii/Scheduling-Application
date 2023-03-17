@@ -56,7 +56,7 @@ public class DBQueries {
         int rowsUpdates = preparedStatement.executeUpdate();
 
         if (rowsUpdates == 1) {
-            Alerts.alertDisplays(7);
+            Alerts.displayAlert(7);
         }
         preparedStatement.close();
         return rowsUpdates;
