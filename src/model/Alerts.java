@@ -8,9 +8,9 @@ import javafx.scene.control.Alert;
  */
 public class Alerts {
     /** Lambda expression used: set header of the error alert.
-     @param title alert title.
-     @param header header of alert.
-     @param content content of alert message. 
+     * @param title alert title.
+     * @param header header of alert.
+     * @param content content of alert message. 
      */
     public static void errorAlert(String title, String header, String content) {
         Alert error = new Alert(Alert.AlertType.ERROR);
@@ -22,10 +22,10 @@ public class Alerts {
     }
 
     /** Informational Alert.
-    @param title alert title.
-     @param header header of alert.
-     @param content content of alert message.  
-     */
+    * @param title alert title.
+    * @param header header of alert.
+    * @param content content of alert message.  
+    */
     public static void informationAlert(String title, String header, String content) {
         Alert error = new Alert(Alert.AlertType.INFORMATION);
         error.setTitle(title);
@@ -35,12 +35,13 @@ public class Alerts {
     }
 
     /** Displays various alerts.
-     @param alertType Alert type*/
-    public static void alertDisplays(int alertType) {
+    *  @param variedAlert Alert type
+    */
+    public static void displayAlert(int variedAlert) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         Alert alertForSave = new Alert(Alert.AlertType.INFORMATION);
 
-        switch (alertType) {
+        switch (variedAlert) {
             case 1:
                 alert.setTitle("FIELD EMPTY  |  NAME REQUIRED");
                 alert.setHeaderText("Name field is empty");

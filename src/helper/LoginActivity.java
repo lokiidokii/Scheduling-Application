@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package helper;
 
 import java.io.BufferedWriter;
@@ -10,9 +6,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Instant;
 
-/**
+/** Login Activity Tracker.
  *
- * @author LabUser
+ * @author HannahBergman
  */
 public class LoginActivity {
 /** File name that is file*/

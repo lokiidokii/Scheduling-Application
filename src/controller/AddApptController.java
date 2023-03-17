@@ -39,7 +39,7 @@ import javafx.stage.Stage;
 
 
 /**
- * FXML Controller class
+ * Add Appointments Controller.
  *
  * @author HannahBergman
  */

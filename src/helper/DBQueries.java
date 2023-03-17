@@ -3,7 +3,7 @@ package helper;
 import model.Alerts;
 import java.sql.*;
 
-/**
+/** DB Queries.
  *
  * @author HannahBergman
  */

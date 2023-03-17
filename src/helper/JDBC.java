@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package helper;
 
 import java.sql.Connection;
@@ -9,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-/**
+/** JDBC
  *
- * @author LabUser
+ * @author HannahBergman
  */
 public abstract class JDBC {
     private static final String protocol = "jdbc";

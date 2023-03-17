@@ -19,7 +19,7 @@ import model.Alerts;
 
 
 /**
- * Main Application Menu Controller class.
+ * Main Application Menu Controller.
  *
  * @author HannahBergman
  */

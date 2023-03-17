@@ -28,7 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
- * Customer Table Controller class.
+ * Customer Table Controller.
  *
  * @author HannahBergman
  */

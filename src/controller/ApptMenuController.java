@@ -34,7 +34,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- * FXML Controller class
+ * Appointment Menu Controller.
  *
  * @author HannahBergman
  */

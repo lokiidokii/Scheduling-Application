@@ -32,7 +32,7 @@ import model.Alerts;
 import model.CustomerInfo;
 
 /**
- * Modify Customer Form.
+ * Modify Customer Controller.
  *
  * @author HannahBergman
  */

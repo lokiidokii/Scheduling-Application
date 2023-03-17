@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import helper.JDBC;
@@ -13,9 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 
-/**
+/** Appointments Model.
  *
- * @author LabUser
+ * @author HannahBergman
  */
 public class Appointments {
 /**Appointment ID*/
