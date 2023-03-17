@@ -183,9 +183,9 @@ public class ApptMenuController implements Initializable {
                 //delete the selected appointment
                 DBQueries.deleteFromApptTable(selectedAppointment.getAppointmentId());
                 //Inform user appointment has now been deleted and therefore cancelled 
-                Alerts.informationAlert("APPOINTMENT HAS BEEN CANCELLED",
-                        "Your appointment with the ID of " +  selectedAppointment.getAppointmentId(),
-                        "which was a " + selectedAppointment.getType() + " type of meeting with " + selectedAppointment.getContactName() + " has been cancelled");
+                Alerts.informationAlert("APPOINTMENT DELETED",
+                        "Your appointment with the ID of " +  selectedAppointment.getAppointmentId() + " has been deleted",
+                        "Your " + selectedAppointment.getType() + " meeting with " + selectedAppointment.getContactName() + " is cancelled");
 
                 switchScreen(event, "/view/apptMenu.fxml");
             }

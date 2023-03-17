@@ -176,7 +176,7 @@ public class Alerts {
                 break;
             case 23:
                 alertForSave.setTitle("APPOINTMENT SUCCESSFULLY SAVED");
-                alertForSave.setHeaderText("New appointment added");
+                alertForSave.setHeaderText("Appointment saved");
                 alertForSave.setContentText("Your appointment has been saved to the Database");
                 alertForSave.showAndWait();
                 break;

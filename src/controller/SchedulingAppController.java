@@ -143,10 +143,10 @@ public class SchedulingAppController implements Initializable {
         //Appointment scheduled - alert user of Appt Id, who the appt is with, what the appt is about, and when it will be starting
         if(appointmentResults.next())  {
             Alerts.informationAlert("APPOINTMENT REMINDER  |  Your Appointment is Starting Soon!",
-                    ("Appointment "+ appointmentResults.getInt(("Appointment_ID")) + " is scheduled to start within 15 minutes. "),
+                    ("Appointment "+ appointmentResults.getInt(("Appointment_ID")) + " is scheduled to start within 15 minutes"),
                     ("Your appointment is with " +
                         appointmentResults.getString("Contact_Name") +
-                        " to talk about " + appointmentResults.getString("Type") + " . It will be starting at exactly" +
+                        " to talk about " + appointmentResults.getString("Type") + ". It will be starting at exactly " +
                         appointmentResults.getTimestamp("Start").toLocalDateTime() + "."));
             }
           //No appointment scheduled 
