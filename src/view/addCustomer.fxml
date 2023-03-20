@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="461.0" prefWidth="543.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerController">
+<AnchorPane id="AnchorPane" prefHeight="470.0" prefWidth="543.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerController">
    <children>
       <Label layoutX="21.0" layoutY="21.0" text="Add Customer">
          <font>
@@ -65,17 +65,17 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="phoneTxtFld" layoutX="145.0" layoutY="345.0" prefHeight="28.0" prefWidth="357.0">
+      <TextField fx:id="phoneTxtFld" layoutX="146.0" layoutY="346.0" prefHeight="28.0" prefWidth="357.0">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="87.0" layoutY="350.0" text="Phone" textAlignment="RIGHT">
+      <Label layoutX="88.0" layoutY="351.0" text="Phone" textAlignment="RIGHT">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="saveCustomerButton" layoutX="350.0" layoutY="393.0" mnemonicParsing="false" onAction="#clickSaveCustomer" text="Save New Customer">
+      <Button fx:id="saveCustomerButton" layoutX="350.0" layoutY="405.0" mnemonicParsing="false" onAction="#clickSaveCustomer" text="Save New Customer">
          <font>
             <Font size="16.0" />
          </font>
