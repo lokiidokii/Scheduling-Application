@@ -38,56 +38,56 @@ import model.CustomerInfo;
  */
 public class ModCustomerController implements Initializable {
     
-    /* Scene variable*/
+    /** Scene variable. */
     Parent scene;
-    /* Stage variable*/
+    /** Stage variable. */
      Stage stage;
     
-    /*Add New - Customer Address.*/
+    /**Add New - Customer Address. */
     @FXML
     private TextField addressTxtFld;
-    /*Add New - Customer Id.*/
+    /**Add New - Customer Id. */
     @FXML
     private TextField idTextFld;
-    /*Add New - Customer Name.*/
+    /**Add New - Customer Name. */
     @FXML
     private TextField nameTxtFld;
-    /*Add New - Customer Phone Number. */
+    /**Add New - Customer Phone Number. */
     @FXML
     private TextField phoneTxtFld;
-    /*Add New - Customer Postal Code.*/
+    /**Add New - Customer Postal Code. */
     @FXML
     private TextField postalTxtFld;
     
-    /*Country Combo Box Dropdown.*/
+    /**Country Combo Box Dropdown. */
     @FXML
     private ComboBox<String> countryComboBox;
-     /*State Combo Box Dropdown*/
+    /**State Combo Box Dropdown. */
     @FXML
     private ComboBox<String> stateComboBox;
     
-    /*Division ID From selected state*/
+    /**Division ID From selected state. */
     public int stateDivisionID;
     
-    /*Selected customer.*/
+    /**Selected customer. */
     CustomerInfo selectedCustomer;
     
     // BUTTONS
     
-    /*Save Customer Updates Button*/
+    /**Save Customer Mods Button. */
     @FXML
     private Button saveCustomerButton;
-    /*Cancel Changes Button.*/
+    /**Cancel Changes Button. */
     @FXML
     private Button cancelCustomerButton;
     
     //Observable Lists
-    /*Observable List for states.*/
+    /**Observable List for states/provinces. */
     ObservableList<String> statesList = FXCollections.observableArrayList();
-    /*Observable List for countries.*/
+    /**Observable List for countries. */
     ObservableList<String> countriesList = FXCollections.observableArrayList("United States", "Canada", "United Kingdom");
     
-    /*
+    /**
      * Fill in the fields with information to modify from the selected customer.
      */
     @Override
@@ -106,7 +106,9 @@ public class ModCustomerController implements Initializable {
     
     // BUTTON ACTIONS
     
-    /*Clicking on the country combobox dropdown*/
+    /**Clicking on the country combobox dropdown. 
+     * @param event select country
+     */
     @FXML
     void clickCountryComboBox(ActionEvent event) throws SQLException {
         String countrySelection = countryComboBox.getSelectionModel().getSelectedItem();
@@ -168,10 +170,10 @@ public class ModCustomerController implements Initializable {
         }
     }
 
-     /* 
-    * Change screen.
-    * @param actionEvent Action event
-    * @param resourcesString Screen link 
+    /** 
+    * Swtich screen.
+    * @param event switch screens
+    * @param resourcesString link to different screen 
      */
     public void changeScreen(ActionEvent event, String resourcesString) throws IOException {
         //Resources example: "/view/mainMenu.fxml"
@@ -181,7 +183,9 @@ public class ModCustomerController implements Initializable {
         stage.show();
     }
     
-    /*Click save - save customer modifications.*/
+    /**Click save - save customer modifications.
+     * @param event save mods
+     */
     @FXML
     public void clickSaveCustomer(ActionEvent event) throws SQLException, IOException {
         String customerId = idTextFld.getText();
@@ -195,7 +199,9 @@ public class ModCustomerController implements Initializable {
         changeScreen(event, "/view/customerTable.fxml");   
     }
 
-    /*Click state combo box - select state/province to modify.*/
+    /**Click state combo box - select state/province to modify. 
+     * @param event change state/province
+     */
     @FXML
     void clickStateComboBox(ActionEvent event) throws SQLException {
        String stateSelected = stateComboBox.getSelectionModel().getSelectedItem();
@@ -204,8 +210,8 @@ public class ModCustomerController implements Initializable {
         DataProvider.divisionID = stateDivisionID;
     }
     
-    /* Get cities from Division ID.
-    *@param comboBoxSelection Combo box selection
+    /** Get states/provinces from Division ID.
+    *@param comboBoxSelection select state/province
     */
     public void getAllStatesDivisionID(String comboBoxSelection) throws SQLException {
         Statement state = JDBC.getConnection().createStatement();

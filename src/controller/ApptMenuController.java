@@ -40,90 +40,88 @@ import java.sql.Statement;
  */
 public class ApptMenuController implements Initializable {
 
-    /* Scene variable*/
+    /** Scene variable. */
     Parent scene;
-    /* Stage variable*/
+    /** Stage variable. */
     Stage stage;
     
-    /*Appointment Table - Appointment ID.*/
+    /**Appointment Table - Appointment ID. */
     @FXML
     private TableColumn<Appointments, Integer> appointmentIDColumn;
     
-    /*Appointment Table.*/
+    /**Appointment Table. */
     @FXML
     private TableView<Appointments> appointmentsTable;
 
-    /*Filter Radio Button - by Month.*/
+    /**Filter Radio Button - by Month. */
     @FXML
     private RadioButton byMonthBtn;
 
-    /*Filter Radio Button - by Week.*/
+    /**Filter Radio Button - by Week. */
     @FXML
     private RadioButton byWeekBtn;
 
-    /*Appointment Table - Contact.*/
+    /**Appointment Table - Contact. */
     @FXML
     private TableColumn<Appointments, String> contactColumn;
 
-    /*Appointment Table - Customer ID.*/
+    /**Appointment Table - Customer ID. */
     @FXML
     private TableColumn<Appointments, Integer> customerIDColumn;
 
-    /*Appointment Table - Description.*/
+    /**Appointment Table - Description. */
     @FXML
     private TableColumn<Appointments, String> descriptionColumn;
 
-    /*Appointment Table - End Time.*/
+    /**Appointment Table - End Time. */
     @FXML
     private TableColumn<Appointments, LocalDateTime> endColumn;
 
-    /*Toggle.*/
+    /**Toggle. */
     @FXML
     private ToggleGroup filterApptToggle;
 
-    /*Appointment Table - Location.*/
+    /**Appointment Table - Location. */
     @FXML
     private TableColumn<Appointments, String> locationColumn;
 
-    /*Appointment Table - Start Time.*/
+    /**Appointment Table - Start Time. */
     @FXML
     private TableColumn<Appointments, LocalDateTime> startColumn;
 
-    /*Appointment Table - Title.*/
+    /**Appointment Table - Title. */
     @FXML
     private TableColumn<Appointments, String> titleColumn;
 
-    /*Appointment Table - Type.*/
+    /**Appointment Table - Type. */
     @FXML
     private TableColumn<Appointments, String> typeColumn;
 
-    /*Appointment Table - User ID.*/
+    /**Appointment Table - User ID. */
     @FXML
     private TableColumn<Appointments, Integer> userIDColumn;
     
-    /*Observable list for appointments by month.*/
+    /**Observable list for appointments by month. */
     private ObservableList<Appointments> filterByMonthOL = FXCollections.observableArrayList();
-    /*Observable list for appointments by week.*/
+    /**Observable list for appointments by week. */
     private ObservableList<Appointments> filterByWeekOL = FXCollections.observableArrayList();
-    /*Selected Appointment.*/
+    /**Selected Appointment. */
     public static Appointments selectedAppointment;
     
-    /* Getter for selected appointments.*/
+    /** Getter for selected appointments. */
     public static Appointments getSelectedAppointment() {
         return selectedAppointment;
     }
     
     // BUTTONS
     
-    /*View All Appointments Button.*/
+    /**View All Appointments Button. */
     @FXML
-    private Button viewAllAppointments;
-    
-    /*Delete Appointment Button.*/
+    private Button viewAllAppointments;  
+    /**Delete Appointment Button. */
     @FXML
     private Button deleteAppointment;
-    
-    /*Main Menu Button.*/
+    /**Main Menu Button. */
     @FXML
     private Button mainMenuBtn;
 
@@ -192,8 +190,8 @@ public class ApptMenuController implements Initializable {
         }
     }
 
-    /* Main menu button.
-    * Takes user back to the main Scheduling App menu screen.
+    /** Main menu button.
+    * @param event Takes user back to the main Scheduling App menu screen.
     */
     @FXML
     void clickMainMenu(ActionEvent event) throws IOException {
@@ -205,7 +203,7 @@ public class ApptMenuController implements Initializable {
 
     /** 
     * Modify appointment button.
-    * Takes user to the mod appt screen.
+    * @param event Takes user to the mod appt screen.
     */
     @FXML
     void clickModAppointment(ActionEvent event) throws IOException {
@@ -228,7 +226,7 @@ public class ApptMenuController implements Initializable {
     
     /**
     * View all appointments button.
-    * Takes user back to the original appt menu screen without filters. 
+    * @parama event Takes user back to the original appt menu screen without filters. 
     */
     @FXML
     void clickViewAllAppointments(ActionEvent event) throws IOException {
@@ -237,10 +235,6 @@ public class ApptMenuController implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
-
-    /**
-    * Filter by week.
-    */
     
     /**
     * Filter by current week.
@@ -374,6 +368,7 @@ public class ApptMenuController implements Initializable {
     }
     
     /**
+     * Fill appointments table with data.
      * Lambda expression used: fill contact name in appointments table.
      */
     @Override

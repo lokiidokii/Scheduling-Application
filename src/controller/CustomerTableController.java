@@ -34,26 +34,26 @@ import javafx.stage.Stage;
  */
 public class CustomerTableController implements Initializable {
     
-    /* Scene variable*/
+    /** Scene variable. */
     Parent scene;
-    /* Stage variable*/
+    /** Stage variable. */
     Stage stage;
     
     // TABLE COLUMN INFO
     
-    /*Customer Table.*/
+    /**Customer Table. */
     @FXML
     public TableView<CustomerInfo> customerTable;
     
-    /*Customer Table - Address.*/
+    /**Customer Table - Address. */
     @FXML
     public TableColumn<CustomerInfo, String> customerTableAddressColumn;
     
-    /*Customer Table - City.*/
+    /**Customer Table - City. */
     @FXML
     private TableColumn<CustomerInfo, String> customerTableCityColumn;
 
-    /*Customer Table - Country.*/
+    /**Customer Table - Country. */
     @FXML
     public TableColumn<CustomerInfo, String> customerTableCountryColumn;
 
@@ -61,50 +61,50 @@ public class CustomerTableController implements Initializable {
     @FXML
     public TableColumn<CustomerInfo, Integer> customerTableIDColumn;
 
-    /*Customer Table - Name.*/
+    /**Customer Table - Name. */
     @FXML
     public TableColumn<CustomerInfo, String> customerTableNameColumn;
 
-    /*Customer Table - Phone.*/
+    /**Customer Table - Phone. */
     @FXML
     public TableColumn<CustomerInfo, String> customerTablePhoneColumn;
 
-    /*Customer Table - Postal Code.*/
+    /**Customer Table - Postal Code. */
     @FXML
     public TableColumn<CustomerInfo, String> customerTablePostalCodeColumn;
     
     // CUSTOMER INFO
     
-    /*Selected customer.*/
+    /**Selected customer. */
     private static CustomerInfo selectedCustomer;
     
-    /* Get selected customer.*/
+    /** Get selected customer. */
     public static CustomerInfo getSelectedCustomer() {
         return selectedCustomer;
     }
     
     // BUTTONS
     
-    /*Add New Customer Button.*/
+    /**Add New Customer Button. */
     @FXML
     public Button addNewCustomerButton;
 
-    /*Delete Customer Button.*/
+    /**Delete Customer Button. */
     @FXML
     public Button deleteCustomerButton;
 
-    /*Modify Customer Button.*/
+    /**Modify Customer Button. */
     @FXML
     public Button modifyCustomerButton;
 
-    /*Main Menu Button.*/
+    /**Main Menu Button. */
     @FXML
     public Button returnToMainMenu;
     
     // BUTTON ACTIONS
 
-    /*Add Customer Button Action.
-    * Takes user to addCustomer screen so they can add a new customer.
+    /**Add Customer Button Action.
+    * @param event Takes user to addCustomer screen so they can add a new customer.
     */
     @FXML
     void clickAddCustomer(ActionEvent event) throws IOException {
@@ -114,7 +114,7 @@ public class CustomerTableController implements Initializable {
         stage.show();
     }
 
-    /*Delete Customer.
+    /** Delete Customer.
     * 
     * Check if customer has an existing appointment.
     * If they do, inform user that they need to delete the appointment first.  
@@ -133,8 +133,8 @@ public class CustomerTableController implements Initializable {
         return 0;
     }
     
-    /*Delete Customer button action.
-    * .  
+    /** Delete Customer button action.
+    * @param event delete customer 
     */ 
     @FXML
     void clickDeleteCustomer(ActionEvent event) throws SQLException, IOException {
@@ -161,8 +161,8 @@ public class CustomerTableController implements Initializable {
     }
 
 
-    /*Return to Main Menu Button Action.
-    * Takes user back to Main Menu.
+    /** Return to Main Menu Button Action.
+    * @param event Takes user back to Main Menu.
     */
     @FXML
     void clickMainMenu(ActionEvent event) throws IOException {
@@ -172,8 +172,8 @@ public class CustomerTableController implements Initializable {
         stage.show();
     }
 
-    /*Modify Customer Button Action.
-    * Takes user to modCustomer screen so they can modify an existing customer.
+    /** Modify Customer Button Action.
+    * @param event Takes user to modCustomer screen so they can modify an existing customer.
     */
     @FXML
     void clickModifyCustomer(ActionEvent event) throws IOException {
@@ -193,7 +193,7 @@ public class CustomerTableController implements Initializable {
         }
     }    
     
-    /*
+    /**
      * Fill customer table with data from the DB.
      */
     @Override

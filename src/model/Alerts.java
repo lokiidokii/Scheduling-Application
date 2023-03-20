@@ -3,7 +3,8 @@ package model;
 import javafx.scene.control.Alert;
 
 /**
- *
+ * Alerts class - contains error/informational alert messages.
+ * 
  * @author HannahBergman
  */
 public class Alerts {

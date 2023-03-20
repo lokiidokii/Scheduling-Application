@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  * @author HannahBergman
  */
 public class Appointments {
-/**Appointment ID*/
+    /**Appointment_ID*/
     private int appointmentId;
     /** Title*/
     private String title;
@@ -28,9 +28,9 @@ public class Appointments {
     private LocalDateTime start;
     /** End*/
     private LocalDateTime end;
-    /** Customer ID*/
+    /** Customer_ID*/
     private int customerId;
-    /** User ID*/
+    /** User_ID*/
     private int userId;
     /** Contact Name*/
     private String contactName;
@@ -43,16 +43,17 @@ public class Appointments {
     public Appointments() {}
 
     /** Appointment constructor
-     @param title
-     @param start
-     @param appointmentId
-     @param contactId
-     @param customerId
-     @param description
-     @param location
-     @param type
-     @param userId
-     @param end */
+    * @param title
+    * @param start
+    * @param appointmentId
+    * @param contactId
+    * @param customerId
+    * @param description
+    * @param location
+    * @param type
+    * @param userId
+    * @param end 
+    */
     public Appointments(int appointmentId, String title, String description, String location, String contactId, String type,
                         LocalDateTime start, LocalDateTime end, int customerId, int userId) {
         this.appointmentId = appointmentId;
@@ -67,106 +68,118 @@ public class Appointments {
         this.contactName = contactId;
     }
 
-    /** Getter for appointment Id
-     @return appointment ID*/
+    /** Getter for Appointment_ID
+     * @return appointment ID
+     */
     public int getAppointmentId() {
         return appointmentId;
     }
 
-    /** Setter for appointment Id*/
+    /** Setter for Appointment_ID. */
     public void setAppointmentId(int appointmentId) {this.appointmentId = appointmentId;}
 
     /** Getter for title
-     @return title*/
+     * @return title
+     */
     public String getTitle() {
         return title;
     }
 
-    /** Setter for title*/
+    /** Setter for title. */
     public void setTitle(String title) {
         this.title = title;
     }
 
     /** Getter for description
-     @return description*/
+    * @return description
+    */
     public String getDescription() {
         return description;
     }
 
-    /** Setter for description*/
+    /** Setter for description. */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /** Getter for location
-     @return location*/
+    * @return location
+    */
     public String getLocation() {
         return location;
     }
 
-    /** Setter for location*/
+    /** Setter for location. */
     public void setLocation(String location) {
         this.location = location;
     }
+    
     /** Getter for type
-     @return type*/
+    * @return type
+    */
     public String getType() {
         return type;
     }
 
     /** Getter for start time
-     @return start*/
+    * @return start
+    */
     public LocalDateTime getStart() {return start;}
 
-    /** Setter for start time*/
+    /** Setter for start time. */
     public void setStart(LocalDateTime start) {this.start = start;}
 
     /** Getter for end time
-     @return end*/
+    * @return end
+    */
     public LocalDateTime getEnd() {
         return end;
     }
 
-    /** Setter for end time*/
+    /** Setter for end time. */
     public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 
-    /** Getter for customer Id
-     @return Customer ID*/
+    /** Getter for Customer_ID.
+    * @return Customer ID
+    */
     public int getCustomerId() {
         return customerId;
     }
 
-    /** Setter for customer Id*/
+    /** Setter for Customer_ID. */
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
-    /** Getter for user Id
-     @return User ID*/
+    /** Getter for User_ID.
+    * @return User ID
+    */
     public int getUserId() {
         return userId;
     }
 
-    /** Setter for user Id*/
+    /** Setter for User_Id. */
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
     /** Getter for contact name
-     @return Contact name*/
+    * @return Contact name
+    */
     public String getContactName() {
         return contactName;
     }
 
-    /** Setter for contact name*/
+    /** Setter for contact name. */
     public void setContactName(String contactName) {
         this.contactName = contactName;
     }
 
     /** Getter to get all appointment from the database
-     @return allAppointmentsList*/
+    * @return allAppointmentsList
+    */
     public static ObservableList<Appointments> getGetAllAppts() throws SQLException {
 
         Statement statement = JDBC.getConnection().createStatement();

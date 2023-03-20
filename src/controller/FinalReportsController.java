@@ -45,84 +45,86 @@ import javafx.stage.Stage;
  * @author HannahBergman
  */
 public class FinalReportsController implements Initializable {
-    /* Scene variable*/
+    /** Scene variable. */
     Parent scene;
-    /* Stage variable*/
+    /** Stage variable. */
     Stage stage;
     
-    /*Reports - Changing Label 1, appts by month/type.*/
+    /**Reports - Changing Label 1, appts by month/type. */
     @FXML
     private Label changingLabel1;
-    /*Reports - Changing Label 2, appts by customer.*/
+    /**Reports - Changing Label 2, appts by customer. */
     @FXML
     private Label changingLabel2;
     
-    /*Reports Table.*/
+    /**Reports Table. */
     @FXML
     private TableView<Appointments> reportTable;
-    /*Reports - Appointment ID.*/
+    /**Reports - Appointment ID. */
     @FXML
     private TableColumn<Appointments, Integer> apptIDColumn;
-    /*Reports - Contact.*/
+    /**Reports - Contact. */
     @FXML
     private TableColumn<Appointments, String> contactColumn;
-    /*Reports - Customer ID.*/
+    /**Reports - Customer ID. */
     @FXML
     private TableColumn<Appointments, Integer> customerIDColumn;
-    /*Reports - Description.*/
+    /**Reports - Description. */
     @FXML
     private TableColumn<Appointments, String> descriptionColumn;
-    /*Reports - End Time.*/
+    /**Reports - End Time. */
     @FXML
     private TableColumn<Appointments, LocalDateTime> endTimeColumn;
-    /*Reports - Location.*/
+    /**Reports - Location. */
     @FXML
     private TableColumn<Appointments, String> locationColumn;
-    /*Reports - Start Time.*/
+    /**Reports - Start Time. */
     @FXML
     private TableColumn<Appointments, LocalDateTime> startTimeColumn;
-    /*Reports - Title.*/
+    /**Reports - Title. */
     @FXML
     private TableColumn<Appointments, String> titleColumn;
-    /*Reports - Type.*/
+    /**Reports - Type. */
     @FXML
     private TableColumn<Appointments, String> typeColumn;
-    /*Reports - User ID.*/
+    /**Reports - User ID. */
     @FXML
     private TableColumn<Appointments, Integer> userIDColumn;
+    
     // COMBO BOXES
-    /*Reports - Type Combo Box.*/
+    /**Reports - Type Combo Box. */
     @FXML
     private ComboBox<String> typeComboBox;
-    /*Reports - Month Combo Box.*/
+    /**Reports - Month Combo Box. */
     @FXML
     private ComboBox<String> monthComboBox;
-    /*Reports - Contact Combo Box.*/
+    /**Reports - Contact Combo Box. */
     @FXML
     private ComboBox<String> contactComboBox;
-    /*Reports - Customer Combo Box.*/
+    /**Reports - Customer Combo Box. */
     @FXML
     private ComboBox<String> customerComboBox;
-    /*Contact id*/
+    
+    /**Contact id. */
     private int contactId;
 //    /*Setter for Contact ID*/
 //    public void setContactID(int contactId) {
 //        this.contactId = contactId;
 //    }
-    /*Observable List for current customers*/
+    /**Observable List for current customers. */
     public ObservableList<String> currentCustomersOL = FXCollections.observableArrayList();
-    /*Observable List for contact customers*/
+    /**Observable List for contacts. */
     public ObservableList<String> contactOL = FXCollections.observableArrayList();
-    /*Observable List for users customers*/
+    /**Observable List for users. */
     public ObservableList<String> monthsOL = FXCollections.observableArrayList("JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER");
-    /*Observable List for filling table by appointment*/
+    /**Observable List for filling table by appointment. */
     public ObservableList<Appointments> apptScheduleOL = FXCollections.observableArrayList();
-    /*Observable List for types customers*/
+    /**Observable List for appointment types. */
     public ObservableList<String> typeOL = FXCollections.observableArrayList("In-Office", "Remote - Conference Call", "Remote - On-Site", "Remote - Video");
     
     /** Switch screens.
-     * @param event
-     * @param resourcesString link to screen
+     * @param event switch screen
+     * @param resourcesString link to different screen
      */
     public void switchScreen(ActionEvent event, String resourcesString) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -144,7 +146,9 @@ public class FinalReportsController implements Initializable {
     
     // BUTTON ACTIONS
     
-    /** Take user back to Appt Menu Screen. */
+    /** Take user back to Appt Menu Screen. 
+     * @param event take user to main menu
+     */
     @FXML
     void clickMainMenu(ActionEvent event) throws IOException, SQLException {
         Alert alertForMainMenu = new Alert(Alert.AlertType.CONFIRMATION);

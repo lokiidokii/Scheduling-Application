@@ -25,12 +25,12 @@ import model.Alerts;
  */
 public class SchedulingAppController implements Initializable {
     
-    /*Scene variable.*/
+    /**Scene variable.*/
     Parent scene;
-    /*Stage variable.*/ 
+    /**Stage variable.*/ 
     Stage stage;
     
-    /*View Appointments Button.*/
+    /**View Appointments Button.*/
     @FXML
     private Button appointmentsButton;
     /*View Customers Button.*/
@@ -48,8 +48,8 @@ public class SchedulingAppController implements Initializable {
     
     /* BUTTON ACTIONS */
     
-    /*Click Appointments Button.
-    * Takes user to ApptMenu.
+    /**Click Appointments Button.
+    * @param event Take user to ApptMenu.
     */
     @FXML
     void clickAppointmentsButton(ActionEvent event) throws IOException {
@@ -59,8 +59,8 @@ public class SchedulingAppController implements Initializable {
         stage.show();
     }
     
-    /*Click Customers Button.
-    * Takes user to CustomerTable.
+    /**Click Customers Button.
+    * @param event Take user to CustomerTable.
     */
     @FXML
     void clickCustomersButton(ActionEvent event) throws IOException {
@@ -70,8 +70,8 @@ public class SchedulingAppController implements Initializable {
         stage.show();
     }
     
-    /*Click Exit Button.
-    * Leave Application.
+    /**Click Exit Button.
+    * @param event Leave Application.
     */
     @FXML
     void clickExit(ActionEvent event) {
@@ -89,8 +89,8 @@ public class SchedulingAppController implements Initializable {
         stage.show();
     }
     
-    /*Click Reports Button.
-    * Takes user to FinalReports Menu.
+    /** Click Reports Button.
+    * @param event Takes user to FinalReports Menu.
     */
     @FXML
     void clickReportsButton(ActionEvent event) throws IOException {
@@ -112,7 +112,7 @@ public class SchedulingAppController implements Initializable {
         }
     }    
     
-    /*
+    /**
     * Show 15 min appt reminder alert to user.
     */
     public void gets15MinApptReminder() throws SQLException {
@@ -123,7 +123,7 @@ public class SchedulingAppController implements Initializable {
         apptReminder(now, end);
     }
 
-    /*
+    /**
     * Search DB for coming appointments.
     *@param now = within 15 min
     *@param end = within 45 min

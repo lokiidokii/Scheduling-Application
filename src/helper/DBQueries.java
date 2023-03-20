@@ -8,9 +8,9 @@ import java.sql.*;
  * @author HannahBergman
  */
 
-/*Database Queries Class.*/
+/**Database Queries Class. */
 public class DBQueries {
-    /* Insert customer into customer table.
+    /** Insert customer into customer table.
     * @param customerName Customer Name
     * @param address Address
     * @param divisionID Division ID
@@ -33,7 +33,7 @@ public class DBQueries {
         return rowsAffected;
     }
     
-     /* Update customer table values from the DB.
+     /** Update customer table values from the DB.
      *@param customerName Customer Name
      *@param address Address
      *@param divisionID Division ID
@@ -62,7 +62,7 @@ public class DBQueries {
         return rowsUpdates;
     }
 
-    /* Delete customer from the DB.
+    /** Delete customer from the DB.
      *@param customerID customerID
     */
     public static int deleteFromCustomerTable(int customerID) throws SQLException {
@@ -78,7 +78,7 @@ public class DBQueries {
         return rowsDeleted;
     }
 
-    /* Delete appt from DB.
+    /** Delete appt from DB.
      @param appointmentId appointment ID
      */
     public static int deleteFromApptTable(int appointmentId) throws SQLException {
@@ -94,7 +94,7 @@ public class DBQueries {
         return rowsDeletedForAppointments;
     }
 
-    /* Insert values into appt table.
+    /** Insert values into appt table.
      * @param userId User ID
      * @param type Appt Type
      * @param location Location
@@ -127,7 +127,7 @@ public class DBQueries {
         return rowsAffectedAppointmentInsert;
     }
 
-    /* Update appts from the DB with appt ID.
+    /** Update appts from the DB with appt ID.
      * @param appointmentID Appointment ID
      * @param customerId Customer ID
      * @param contactId Contact ID

@@ -19,7 +19,7 @@ public class SchedulingAppV2 extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-        /*Connecting to Client-Side DB via Netbeans*/
+        /** Connecting to Client-Side DB via Netbeans. */
         /*Establishing aka OPening the DB connection.*/
         JDBC.openConnection(); //when ran, 'Connection successful!' should appear in output
         /*Start up JavaFX application.*/
@@ -31,7 +31,7 @@ public class SchedulingAppV2 extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        /* Main Menu Load Screen.*/ 
+        /** Main Menu Load Screen. */ 
        Parent root = FXMLLoader.load(getClass().getResource("/view/loginScreen.fxml"));
        Scene scene = new Scene(root);
        stage.setScene(scene);

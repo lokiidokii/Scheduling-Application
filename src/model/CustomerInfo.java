@@ -27,17 +27,18 @@ public class CustomerInfo {
     private String phoneNumber;
     /** Country*/
     private String country;
-    /** Observable List of Customer called allCustomersList*/
+    /** Observable List of customers*/
     public static ObservableList<CustomerInfo> allCustomersList = FXCollections.observableArrayList();
 
     /** Customer Info constructor.
-     @param customerID
-     @param customerName
-     @param address
-     @param city
-     @param country
-     @param postalCode
-     @param phoneNumber */
+    * @param customerID
+    * @param customerName
+    * @param address
+    * @param city
+    * @param country
+    * @param postalCode
+    * @param phoneNumber 
+    */
     public CustomerInfo (int customerID, String customerName, String address, String city, String postalCode, String phoneNumber, String country) {
         this.customerID = customerID;
         this.customerName = customerName;
@@ -47,52 +48,58 @@ public class CustomerInfo {
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
     }
-    /** Getter for customer ID
-     @return customerID*/
+    
+    /** Getter for Customer_ID
+    * @return customerID
+    */
     public int getCustomerID() {
         return customerID;
     }
 
-    /** Setter for customer id*/
+    /** Setter for Customer_ID. */
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
 
     /** Getter for customer Name
-     @return customer Name*/
+    * @return customer Name
+    */
     public String getCustomerName() {
         return customerName;
     }
 
-    /** Setter for customerName*/
+    /** Setter for customer name. */
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
 
     /** Getter for address
-     @return address*/
+    * @return address
+    */
     public String getAddress() {
         return address;
     }
 
-    /** Setter for address*/
+    /** Setter for address. */
     public void setAddress(String address) {
         this.address = address;
     }
 
     /** Getter for city
-     @return city*/
+    * @return city
+    */
     public String getCity() {
         return city;
     }
 
-    /** Setter for city*/
+    /** Setter for city. */
     public void setCity(String city) {
         this.city = city;
     }
 
     /** Getter for Postal Code
-     @return Postal Code*/
+    * @return Postal Code
+    */
     public String getPostalCode() {
         return postalCode;
     }
@@ -108,24 +115,26 @@ public class CustomerInfo {
         return phoneNumber;
     }
 
-    /** Setter for Phone number*/
+    /** Setter for Phone number. */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
     /** Getter for country
-     @return country*/
+    * @return country
+    */
     public String getCountry() {
         return country;
     }
 
-    /** Setter for country*/
+    /** Setter for country. */
     public void setCountry(String country) {
         this.country = country;
     }
 
     /** Getter for all customers from the database
-     @return allCustomersList*/
+    * @return all customers
+    */
     public static ObservableList<CustomerInfo> getGetAllCustomers() throws SQLException {
 
         Statement statement = JDBC.getConnection().createStatement();

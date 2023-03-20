@@ -9,6 +9,8 @@ import java.sql.SQLException;
  *
  * @author HannahBergman
  */
+/** Class provided by WGU course.
+ */
 public abstract class JDBC {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";

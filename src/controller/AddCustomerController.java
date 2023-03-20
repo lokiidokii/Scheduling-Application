@@ -26,60 +26,62 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-/*
+/**
  * Add Customer Controller class.
  *
  * @author HannahBergman
  */
 public class AddCustomerController implements Initializable {
-    /* Scene variable*/
+    /** Scene variable. */
     Parent scene;
-    /* Stage variable*/
+    /** Stage variable. */
     Stage stage;
     
-    /*Add New - Customer Address*/
+    /**Add New - Customer Address. */
     @FXML
     public TextField addressTxtFld;
-    /*Add New - Customer ID*/
+    /**Add New - Customer ID. */
     @FXML
     public TextField idTextFld;
-    /*Add New - Customer Name*/
+    /**Add New - Customer Name. */
     @FXML
     public TextField nameTxtFld;
-    /*Add New - Customer Phone Number*/
+    /**Add New - Customer Phone Number. */
     @FXML
     public TextField phoneTxtFld;
-    /*Add New - Customer Postal Code*/
+    /**Add New - Customer Postal Code. */
     @FXML
     public TextField postalTxtFld;
-    /*Add New - State Combo Box*/
+    /**Add New - State Combo Box. */
     @FXML
     public ComboBox<String> stateComboBox;
-    /*Add New - Country Combo Box*/
+    /**Add New - Country Combo Box. */
     @FXML
     public ComboBox<String> countryComboBox;
-    /*Division ID From selected state*/
+    /**Division ID From selected state. */
     public int stateDivisionID;
 
     
     // BUTTONS
     
-    /*Cancel Add Customer Button*/
+    /**Cancel Add Customer Button. */
     @FXML
     private Button cancelCustomerButton;
-    /*Save New Customer Button*/
+    /**Save New Customer Button. */
     @FXML
     private Button saveCustomerButton;
     
     //Observable Lists
-    /*Observable List for states.*/
+    /**Observable List for states. */
     ObservableList<String> statesList = FXCollections.observableArrayList();
-    /*Observable List for countries.*/
+    /**Observable List for countries. */
     ObservableList<String> countriesList = FXCollections.observableArrayList("United States", "Canada", "United Kingdom");
     
     // BUTTON ACTIONS
     
-    /*Countries combo box dropdown.*/
+    /**Countries combo box dropdown. 
+     * @param event Get corresponding state/province from country
+     */
     @FXML
     public void clickCountryComboBox(ActionEvent event) throws SQLException {
     String countrySelection = countryComboBox.getSelectionModel().getSelectedItem();
@@ -124,8 +126,8 @@ public class AddCustomerController implements Initializable {
     }
     
     
-    /*Cancel Button.
-    * Go back to customer table.
+    /** Cancel Button.
+    * @param event Go back to customer table.
     */
     @FXML
     public void clickCustomerTable(ActionEvent event) throws IOException {
@@ -175,13 +177,15 @@ public class AddCustomerController implements Initializable {
     }
 
     
-    /* Fill the country Combo Box.*/
+    /** Fill the country Combo Box. */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         countryComboBox.setItems(countriesList);
     }    
 
-    /*States/provinces combo box dropdown.*/
+    /**States/provinces combo box dropdown. 
+     * @param event select state/province 
+     */
     @FXML
     public void clickStateComboBox(ActionEvent event) throws SQLException {
         String stateSelected = stateComboBox.getSelectionModel().getSelectedItem();
@@ -191,8 +195,8 @@ public class AddCustomerController implements Initializable {
         System.out.println(stateDivisionID);
     }
     
-    /* Get cities from Division ID.
-    *@param comboBoxSelection Combo box selection
+    /** Get states/provinces from Division ID.
+    *@param comboBoxSelection State/province selection
     */
     public void getAllStatesDivisionID(String comboBoxSelection) throws SQLException {
         Statement state = JDBC.getConnection().createStatement();
@@ -204,7 +208,7 @@ public class AddCustomerController implements Initializable {
         }
     }
 
-    /* Check if the name field is empty and alert user to fill out if null.
+    /** Alert user if name field is blank.
     * @param name 
     */
     public boolean nameFieldFilled(String name) {
@@ -215,7 +219,7 @@ public class AddCustomerController implements Initializable {
         return true;
     }
 
-    /* Check if the address field is empty and alert user to fill out if null.
+    /** Alert user if address field is blank
     * @param address 
     */
     public boolean addressFieldFilled(String address) {
@@ -226,7 +230,7 @@ public class AddCustomerController implements Initializable {
         return true;
     }
 
-    /* Check if the postal code field is empty and alert user to fill out if null.
+    /** Alert user if postal code field is blank
     * @param postalCode 
     */
     public boolean postalCodeFieldFilled(String postalCode) {
@@ -237,7 +241,7 @@ public class AddCustomerController implements Initializable {
         return true;
     }
 
-    /* Check if the phone number field is empty and alert user to fill out if null.
+    /** Alert user if phone number field is blank
     * @param phone 
     */
     public boolean phoneNumFieldFilled(String phone) {
@@ -248,7 +252,7 @@ public class AddCustomerController implements Initializable {
         return true;
     }
 
-    /* Check if the country combo box is empty and alert user to select country if null.
+    /** Alert user if country combo box is unselected
     * @param country
     */
     public boolean countryPicked(String country) {
@@ -259,7 +263,7 @@ public class AddCustomerController implements Initializable {
         return true;
     }
 
-    /* Check if the state (state/province) combo box is empty and alert user to select state if null.
+    /** Alert user if the state (state/province) combo box is unselected.
     * @param state 
     */
     public boolean statePicked (String state) {

@@ -14,11 +14,12 @@ import model.Alerts;
  * @author HannahBergman
  */
 public class TimeZones {
-     /** ObservableList for appointment times.*/
+    /** ObservableList for appointment times.*/
     private ObservableList<LocalTime> appointmentTimeList = FXCollections.observableArrayList();
 
     /** Generates all the times for the time combo boxes on the add and modify appointments screen
-     @return appointmentTimeList*/
+    * @return appointmentTimeList
+    */
     public ObservableList<LocalTime> generateTimeList() {
         LocalTime appointmentTime = LocalTime.of(0,0);
         appointmentTimeList.add(appointmentTime);

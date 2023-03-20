@@ -5,6 +5,6 @@ package helper;
  * @author HannahBergman
  */
 public class DataProvider {
-/** DivisionID*/
+/** DivisionID. */
     public static int divisionID;
 }

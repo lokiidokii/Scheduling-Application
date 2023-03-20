@@ -11,14 +11,13 @@ import java.time.Instant;
  * @author HannahBergman
  */
 public class LoginActivity {
-/** File name that is file*/
+    /**File name.*/
     private static final String FILE_NAME = "login_activity.txt";
 
-    /** Basic constructor*/
+    /** Constructor. */
     public LoginActivity() {}
 
-    /** Log attempt that tracks all login attempts
-     CREDIT: A user on Stack Overflow helped me develop this snippet. It is my work with a few suggestions.*/
+    /** Log attempt that tracks all login attempts. */
     public static void logAttempt(String username, boolean loggedIn, String message) {
         try (FileWriter fileWriter = new FileWriter(FILE_NAME, true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);

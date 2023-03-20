@@ -33,58 +33,60 @@ import java.sql.ResultSet;
  * @author HannahBergman
  */
 
-/* Login Screen Controller.*/
+/** Login Screen Controller. */
 public class LoginScreenController implements Initializable {
 
-    /*Scene variable.*/
+    /**Scene variable. */
     Parent scene;
-    /*Stage variable.*/
+    /**Stage variable. */
     Stage stage;
     
-    /*Exit button.*/
+    /**Exit button. */
      @FXML
     public Button exitButton;
-    /*Login button*/
+    /**Login button. */
     @FXML
     public Button loginButton;
-    /*Password Label*/
+    /**Password Label. */
     @FXML
     public Label passwordLabel;
-    /*Password Text Field*/
+    /**Password Text Field. */
     @FXML
     public TextField passwordTextField;
-    /*Username Label*/
+    /**Username Label. */
     @FXML
     public Label usernameLabel;
-    /*Username Text Field*/
+    /**Username Text Field. */
     @FXML
     public TextField usernameTextField;
-    /*Zone: */
+    /**Zone. */
     @FXML
     public Label zone;
-    /*Empty Zone Label (For switching between zones)*/
+    /**Empty Zone Label (for switching between zones). */
     @FXML
     public Label zoneLabelBlank;
     
     /* OTHER VARIABLES */
-    /* User ID Alert Box*/
+    /** User ID Alert Box. */
     public static String titleForUserID; //USER ID NOT FOUND
     public static String headerForUserID; //Could not find User ID in DB
     public static String contentForUserID; //Re-enter correct username
-    /* Login Alert Box */
+    /** Login Alert Box.  */
     public static String titleForLogin; //UNABLE TO LOGIN
     public static String headerForLogin; //Incorrect username/pw
     public static String contentForLogin; //Re-enter username/pw
     
-    /*Exit Button action.
-    * Exit application when clicked.
+    /** Exit Button action.
+    * @param event Exit application when clicked.
     */
     @FXML
     public void clickExit(ActionEvent event) {
     System.exit(0); //Exit application
     }
     
-    /*Login Button action*/
+    /**Login Button action. 
+     * @param event login
+     */
     @FXML
     public void clickLogin(ActionEvent event) throws IOException, SQLException {
         //Get username & password from user
@@ -109,7 +111,7 @@ public class LoginScreenController implements Initializable {
         }
     }
 
-    /*
+    /**
     * Match password entered with password from DB.
     *
     * @param password = password
@@ -129,7 +131,7 @@ public class LoginScreenController implements Initializable {
         return false; //else alert user that login is incorrect
         }  
 
-    /* Match username entered with username from DB.
+    /** Match username entered with username from DB.
     *
     * @param username = username
     */
@@ -147,7 +149,7 @@ public class LoginScreenController implements Initializable {
         return false; //else alert user that login is incorrect
     }
 
-    /* Match UserID to username from DB. 
+    /** Match UserID to username from DB. 
     *@param username = username
     */
     public static int getUserIdAndUsername(String username) throws SQLException {
@@ -168,7 +170,7 @@ public class LoginScreenController implements Initializable {
     }
 
     /**
-     * Initialize the controller class.
+     * Switch languages or keep login screen text in English.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -44,77 +44,79 @@ import javafx.stage.Stage;
  * @author HannahBergman
  */
 public class ModApptController implements Initializable {
-    /* Scene variable*/
+    /** Scene variable. */
     Parent scene;
-    /* Stage variable*/
+    /** Stage variable. */
     Stage stage;
     
-    /*Mod Appointment - Appointment ID.*/
+    /**Mod Appointment - Appointment ID. */
     @FXML
     private TextField apptIDTxtFld;
-    /*Mod Appointment - Contact.*/
+    /**Mod Appointment - Contact. */
     @FXML
     private ComboBox<String> contactComboBox;
-    /*Mod Appointment - Customer.*/
+    /**Mod Appointment - Customer. */
     @FXML
     private ComboBox<String> customerComboBox;
-    /*Mod Appointment - Customer ID.*/
+    /**Mod Appointment - Customer ID. */
     @FXML
     private TextField customerIDTxtFld;
-    /*Mod Appointment - Date Picker.*/
+    /**Mod Appointment - Date Picker. */
     @FXML
     private DatePicker datePicker;
-    /*Mod Appointment - Description.*/
+    /**Mod Appointment - Description. */
     @FXML
     private TextField descriptionTxtFld;
-    /*Mod Appointment - End Time.*/
+    /**Mod Appointment - End Time. */
     @FXML
     private ComboBox<LocalTime> endTimeComboBox;
-    /*Mod Appointment - Location.*/
+    /**Mod Appointment - Location. */
     @FXML
     private TextField locationTxtFld;
-    /*Mod Appointment - Start Time.*/
+    /**Mod Appointment - Start Time. */
     @FXML
     private ComboBox<LocalTime> startTimeComboBox;
-    /*Mod Appointment - Title.*/
+    /**Mod Appointment - Title. */
     @FXML
     private TextField titleTxtFld;
-    /*Mod Appointment - Type*/
+    /**Mod Appointment - Type. */
     @FXML
     private ComboBox<String> typeComboBox;
-    /*Mod Appointment - User Id.*/
+    /**Mod Appointment - User Id. */
     @FXML
     private ComboBox<Integer> userIDComboBox;
-    /*Selected appointment*/
+    /**Selected appointment. */
     private static Appointments selectedAppointment;
-    /*Contact id*/
+    /**Contact id. */
     private int contactId;
-    /*Setter for Contact ID*/
+    /**Setter for Contact ID. */
     public void setContactID(int contactId) {
         this.contactId = contactId;
     }
-    /*Observable List for current customers*/
+    /**Observable List for current customers. */
     public static ObservableList<String> currentCustomersOL = FXCollections.observableArrayList();
-    /*Observable List for contact customers*/
+    /**Observable List for contacts. */
     public static ObservableList<String> contactOL = FXCollections.observableArrayList();
-    /*Observable List for users customers*/
+    /**Observable List for users. */
     public static ObservableList<Integer> userIDOL = FXCollections.observableArrayList();
-    /*Observable List for types customers*/
+    /** Observable List for appointment types. */
     private ObservableList<String> typeOL = FXCollections.observableArrayList("In-Office", "Remote - Conference Call", "Remote - On-Site", "Remote - Video");
     
     // BUTTONS
-    /*Main Menu Button.*/
+    /**Main Menu Button. */
     @FXML
     private Button mainMenuButton;
-    /*Save Button.*/
+    /**Save Button. */
     @FXML
     private Button saveButton;
-    /*Back Button.*/
+    /**Back Button. */
     @FXML
     private Button backButton;
     
     // BUTTON ACTIONS
-    /* Take user back to Appt Menu Screen.*/
+    /** Take user back to Appt Menu Screen. 
+     * @param event back to appt menu
+     */
     @FXML
     void clickBackToApptMenu(ActionEvent event) throws IOException {
         Alert alertForMainMenu = new Alert(Alert.AlertType.CONFIRMATION);
@@ -131,7 +133,9 @@ public class ModApptController implements Initializable {
         }
     }
     
-    /* Take user back to Main Menu Screen.*/
+    /** Take user back to Main Menu Screen.
+     * @param event back to main menu
+     */
     @FXML
     void clickMainMenu(ActionEvent event) throws IOException {
         Alert alertForMainMenu = new Alert(Alert.AlertType.CONFIRMATION);
@@ -149,8 +153,8 @@ public class ModApptController implements Initializable {
     }
     
     /** Switch screens.
-     * @param event
-     * @param resourcesString link to screen
+     * @param event switch screens
+     * @param resourcesString link to different screen
      */
     public void switchScreen(ActionEvent event, String resourcesString) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -159,7 +163,9 @@ public class ModApptController implements Initializable {
         stage.show();
     }
     
-    /* Save Appt Modification.*/
+    /** Save Appt Modification.
+     * @param event save mods
+     */
     @FXML
     void clickSaveAppt(ActionEvent event) {
         try {
@@ -273,7 +279,7 @@ public class ModApptController implements Initializable {
     }
     
     /** Get contact id from the contact name.
-     * @param event event.
+     * @param event get contact id
      */
     public void getContactIDFromContact() throws SQLException {
         String contactName = contactComboBox.getSelectionModel().getSelectedItem();
@@ -289,13 +295,15 @@ public class ModApptController implements Initializable {
     }
     
      /** Get contact id from the contact name.
-     * @param event event.
+     * @param event get contact id
      */
     public void selectContact(ActionEvent event) throws SQLException {
        getContactIDFromContact();
     }
     
-    /* Set customer ID field from the customer selected in the customer combo box. */
+    /** Set customer ID field from the customer selected in the customer combo box. 
+    * @param event set contact id
+    */
     @FXML
     void selectCustomer(ActionEvent event) throws SQLException {
         String contactName = contactComboBox.getSelectionModel().getSelectedItem();

@@ -5,6 +5,6 @@ package model;
  * @author HannahBergman
  */
 public class Username {
-    /* Username. */
+    /** Username. */
     public static String username;
 }
