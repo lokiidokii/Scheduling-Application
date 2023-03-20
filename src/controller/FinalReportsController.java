@@ -105,20 +105,20 @@ public class FinalReportsController implements Initializable {
     private ComboBox<String> customerComboBox;
     /*Contact id*/
     private int contactId;
-    /*Setter for Contact ID*/
-    public void setContactID(int contactId) {
-        this.contactId = contactId;
-    }
+//    /*Setter for Contact ID*/
+//    public void setContactID(int contactId) {
+//        this.contactId = contactId;
+//    }
     /*Observable List for current customers*/
-    public static ObservableList<String> currentCustomersOL = FXCollections.observableArrayList();
+    public ObservableList<String> currentCustomersOL = FXCollections.observableArrayList();
     /*Observable List for contact customers*/
-    public static ObservableList<String> contactOL = FXCollections.observableArrayList();
+    public ObservableList<String> contactOL = FXCollections.observableArrayList();
     /*Observable List for users customers*/
-    public static ObservableList<String> monthsOL = FXCollections.observableArrayList("JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER");
+    public ObservableList<String> monthsOL = FXCollections.observableArrayList("JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER");
     /*Observable List for filling table by appointment*/
-    private ObservableList<Appointments> apptScheduleOL = FXCollections.observableArrayList();
+    public ObservableList<Appointments> apptScheduleOL = FXCollections.observableArrayList();
     /*Observable List for types customers*/
-    private ObservableList<String> typeOL = FXCollections.observableArrayList("In-Office", "Remote - Conference Call", "Remote - On-Site", "Remote - Video");
+    public ObservableList<String> typeOL = FXCollections.observableArrayList("In-Office", "Remote - Conference Call", "Remote - On-Site", "Remote - Video");
     
     /** Switch screens.
      * @param event
@@ -174,7 +174,9 @@ public class FinalReportsController implements Initializable {
         }
     }
      
-    /** Allow user to search by month and type, also throws alert if they don't select an option from combo box. */
+    /** Allow user to search by month and type.
+     * Throw an error alert if they don't select an option from combo box. 
+     */
     @FXML
     void clickSearchAppts(ActionEvent event) throws SQLException {
         if(monthComboBox.getSelectionModel().getSelectedItem() == null) {
@@ -213,32 +215,42 @@ public class FinalReportsController implements Initializable {
         userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
     }
 
-    public void searchCustomer(String customerName) throws SQLException {
+    // ATTEMPT TO GET CUSTOMER COMBO BOX TO WORK WITH SEPARATE BUTTON
+//    public void searchCustomer(String customerName) throws SQLException {
+//        Statement getCustomerCount = JDBC.getConnection().createStatement();
+//        String customerCountSQL = "SELECT COUNT(contactName) FROM appointments";
+//        ResultSet customerCount = getCustomerCount.executeQuery(customerCountSQL);
+//        
+//        while(customerCount.next()) {
+//            changingLabel2.setText(String.valueOf(customerCount.getInt("Count")));
+//        }
+//    }
+//    
+//    @FXML
+//    public void clickSearchCustAppts(ActionEvent event) throws SQLException {
+//           if(customerComboBox.getSelectionModel().getSelectedItem() == null) {
+//            Alerts.errorAlert("PLEASE SELECT CUSTOMER", "Please select a customer from the dropdown", "");
+//        } else {
+//            String customerName = customerComboBox.getSelectionModel().getSelectedItem();
+//            searchCustomer(customerName);
+//        }
+////    }
+
+    /** Search DB for # of customer appointments and display total in changing label. 
+     * @event combo box selection
+     */
+    @FXML
+    void selectCustomer(ActionEvent event) throws SQLException {
+        String customerName = customerComboBox.getSelectionModel().getSelectedItem();
         Statement getCustomerCount = JDBC.getConnection().createStatement();
-        String customerCountSQL = "SELECT COUNT(Customer_Name) AS Count FROM appointments " +
+        String customerCountSQL = "SELECT COUNT(Customer_Name) AS 'Total' FROM appointments " +
                                 "INNER JOIN customers " +
                                 "ON appointments.Customer_ID = customers.Customer_ID " +
-                                "WHERE Customer_Name='";
-        ResultSet customerCount = getCustomerCount.executeQuery(customerCountSQL);
-        
-        while(customerCount.next()) {
-            changingLabel2.setText(String.valueOf(customerCount.getInt("Count")));
-        }
+                                "WHERE Customer_Name='" + customerName + "'";
+        ResultSet rs = getCustomerCount.executeQuery(customerCountSQL);
+        while(rs.next()) {
+            changingLabel2.setText(rs.getString("Total"));
     }
-    
-    @FXML
-    public void clickSearchCustAppts(ActionEvent event) throws SQLException {
-           if(customerComboBox.getSelectionModel().getSelectedItem() == null) {
-            Alerts.errorAlert("PLEASE SELECT CUSTOMER", "Please select a customer from the dropdown", "");
-        } else {
-            String customerName = customerComboBox.getSelectionModel().getSelectedItem();
-            searchCustomer(customerName);
-        }
-    }
-
-    @FXML
-    void selectCustomer(ActionEvent event) {
-      
     }
     
     @FXML
@@ -252,7 +264,7 @@ public class FinalReportsController implements Initializable {
     }
 
     /**
-     * Initializes the controller class.
+     * Initialize combo boxes of Final Reports screen.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -278,7 +290,7 @@ public class FinalReportsController implements Initializable {
         }
     }
 
-     /** Fill customer list combo box. */
+     /** Fill customer combo box. */
     public void fillCustomers() throws SQLException {
 
         Statement loadCustomersStatement = JDBC.getConnection().createStatement();
@@ -291,7 +303,9 @@ public class FinalReportsController implements Initializable {
         }
     }
 
-     /** Fill month list combo box. */
+     /** Fill month combo box with list of months. 
+      * Note: months need to be capitalized 
+      */
     public int monthSelection(String monthSelected) {
         int monthId;
         switch(monthSelected){
@@ -334,7 +348,7 @@ public class FinalReportsController implements Initializable {
         return monthId;
     }
     
-    /** Fill the schedule table.
+    /** Fill the schedule table with correlating info.
      @return appointments
      */
     public ObservableList<Appointments> getApptSchedule() throws SQLException {
