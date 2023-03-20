@@ -44,81 +44,81 @@ import javafx.stage.Stage;
  * @author HannahBergman
  */
 public class AddApptController implements Initializable {
-    /* Scene variable*/
+    /**Scene variable. */
     Parent scene;
-    /* Stage variable*/
+    /**Stage variable. */
     Stage stage;
     
-    /*Add Appointment - Appointment ID.*/
+    /**Add Appointment - Appointment ID. */
     @FXML
     private TextField apptIDTxtFld;
-    /*Add Appointment - Contact.*/
+    /**Add Appointment - Contact. */
     @FXML
     private ComboBox<String> contactComboBox;
-    /*Add Appointment - Customer*/
+    /**Add Appointment - Customer. */
     @FXML
     private ComboBox<String> customerComboBox;
-    /*Add Appointment - Location*/
+    /**Add Appointment - Location. */
     @FXML
     private TextField locationTxtFld;
-    /*Add Appointment - Customer ID.*/
+    /**Add Appointment - Customer ID. */
     @FXML
     private TextField customerIDTxtFld;
-    /*Add Appointment - Date.*/
+    /**Add Appointment - Date. */
     @FXML
     private DatePicker datePicker;
-    /*Add Appointment - Description.*/
+    /**Add Appointment - Description. */
     @FXML
     private TextField descriptionTxtFld;
-    /*Add Appointment - End Time.*/
+    /**Add Appointment - End Time. */
     @FXML
     private ComboBox<LocalTime> endTimeComboBox;
-    /*Add Appointment - Start Time.*/
+    /**Add Appointment - Start Time. */
     @FXML
     private ComboBox<LocalTime> startTimeComboBox;
-    /*Add Appointment - Title.*/
+    /**Add Appointment - Title. */
     @FXML
     private TextField titleTxtFld;
-    /*Add Appointment - Type.*/
+    /**Add Appointment - Type. */
     @FXML
     private ComboBox<String> typeComboBox;
-    /*Add Appointment - User ID.*/
+    /**Add Appointment - User ID. */
     @FXML
     private ComboBox<Integer> userIDComboBox;
-    /*Contact ID*/
+    /**Contact ID. */
     private int contactId;
-    /*Getter for Contact ID*/
+    /**Getter for Contact ID. */
     public int getContactID() {
         return contactId;
     }
-    /*Setter for Contact ID*/
+    /**Setter for Contact ID. */
     public void setContactID(int contactId) {
         this.contactId = contactId;
     }
-    /*Observable List for current customers*/
+    /**Observable List for current customers. */
     public static ObservableList<String> currentCustomersOL = FXCollections.observableArrayList();
-    /*Observable List for contact customers*/
+    /**Observable List for contacts. */
     public static ObservableList<String> contactOL = FXCollections.observableArrayList();
-    /*Observable List for users customers*/
+    /**Observable List for user ids. */
     public static ObservableList<Integer> userIDOL = FXCollections.observableArrayList();
-    /*Observable List for types customers*/
+    /**Observable List for appointment types. */
     private ObservableList<String> typeOL = FXCollections.observableArrayList("In-Office", "Remote - Conference Call", "Remote - On-Site", "Remote - Video");
     
     // BUTTONS
-    /*Main Menu Button.*/
+    /**Main Menu Button. */
     @FXML
     private Button mainMenuButton;
-    /*Save Button.*/
+    /**Save Button. */
     @FXML
     private Button saveButton;
-    /*Back Button.*/
+    /**Back Button. */
     @FXML
     private Button backButton;
     
     
     // BUTTON ACTIONS
     /** Back button.
-    * Takes user to back to the Appt Menu screen.
+    * @param event Takes user to back to the Appt Menu screen.
     */
     @FXML
     void clickBackToApptMenu(ActionEvent event) throws IOException {
@@ -185,7 +185,7 @@ public class AddApptController implements Initializable {
     }
 
     /** Save appointment button.
-    * Save new appointment.
+    * @param event Save new appointment.
     */
     @FXML
     void clickSaveAppt(ActionEvent event) {
@@ -232,7 +232,7 @@ public class AddApptController implements Initializable {
     }
     
     /** Main menu button.
-    * Takes user to Scheduling App (Main Menu) screen.
+    * @param event Takes user to Scheduling App (Main Menu) screen.
     */
     @FXML
     void clickMainMenu(ActionEvent event) throws IOException {
@@ -252,8 +252,8 @@ public class AddApptController implements Initializable {
 
     /**
      * Switch screens - specify which when using this.
-     * @param actionEvent Action event
-     * @param resourcesString Screen link
+     * @param event Switch screens
+     * @param resourcesString Link to different screen
      */
     public void switchScreen (ActionEvent event, String resourcesString) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -264,7 +264,7 @@ public class AddApptController implements Initializable {
 
     // COMBO BOX ACTIONS
 
-    /* Set contact ID field from the contact name selected in the contact combo box. */
+    /** Set contact ID field from the contact name selected in the contact combo box. */
     @FXML
     void selectContact(ActionEvent event) throws SQLException {
         String contactName = contactComboBox.getSelectionModel().getSelectedItem();
@@ -279,7 +279,7 @@ public class AddApptController implements Initializable {
         st.close();
     }
 
-    /* Set customer ID field from the customer selected in the customer combo box. */
+    /** Set customer ID field from the customer selected in the customer combo box. */
     @FXML
     void selectCustomer(ActionEvent event) throws SQLException {
         String customerName = customerComboBox.getSelectionModel().getSelectedItem();
@@ -406,7 +406,7 @@ public class AddApptController implements Initializable {
         return true;
     }
 
-    /**Alert user if type is unselected.
+    /** Alert user if type is unselected
      *@param type Type
      */
     public boolean typeNotNull(String type) {
@@ -417,8 +417,9 @@ public class AddApptController implements Initializable {
         return true;
     }
 
-    /**Alert user if location is empty
-     @param location The text in the location*/
+    /** Alert user if location is empty
+     * @param location Location
+     */
     public boolean locationNotNull(String location) {
         if (locationTxtFld.getText().isEmpty()) {
             Alerts.displayAlert(15);
@@ -438,7 +439,7 @@ public class AddApptController implements Initializable {
         return true;
     }
 
-    /**Alert user if end time is unselected.
+    /** Alert user if end time is unselected.
      *@param end End time
      */
     public boolean endNotNull(Timestamp end) {
