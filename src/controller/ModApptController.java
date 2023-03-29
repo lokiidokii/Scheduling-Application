@@ -218,13 +218,13 @@ public class ModApptController implements Initializable {
      */
     public boolean timeValidation(Timestamp start, Timestamp end) {
 
-        boolean endBeforeStart = end.before(start);
-        boolean endEqualsStart = end.equals(start);
+        boolean endTimeIsBeforeStart = end.before(start);
+        boolean endTimeIsEqualToStart = end.equals(start);
 
-        if(endBeforeStart) {
+        if(endTimeIsBeforeStart) {
             Alerts.displayAlert(24);
             return false;
-        } else if(endEqualsStart) {
+        } else if(endTimeIsEqualToStart) {
             Alerts.displayAlert(25);
             return false;
         }
@@ -239,17 +239,17 @@ public class ModApptController implements Initializable {
         Timestamp endUTC = Timestamp.valueOf(utcEndZDT.toLocalDateTime());
 
         try {
-            Statement validAppointmentStatement = JDBC.getConnection().createStatement();
+            Statement appointmentTimeConflictCheck = JDBC.getConnection().createStatement();
 
-            String validApptSQL =
+            String checkForAppointmentTimeOverlap =
                     "SELECT * " +
                     "FROM scheduleapp.appointments " +
                     "WHERE ('" + startZDT + "' BETWEEN Start AND End " +
                     "OR '" + endZDT + "' BETWEEN Start AND End)";
 
-            ResultSet checkApptValidation = validAppointmentStatement.executeQuery(validApptSQL);
+            ResultSet apptOverlap = appointmentTimeConflictCheck.executeQuery(checkForAppointmentTimeOverlap);
 
-            if(checkApptValidation.next()) {
+            if(apptOverlap.next()) {
                 Alerts.displayAlert(26);
                 return false;
             }
