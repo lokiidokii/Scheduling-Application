@@ -122,13 +122,13 @@ public class AddApptController implements Initializable {
     */
     @FXML
     void clickBackToApptMenu(ActionEvent event) throws IOException {
-        Alert alertForMainMenu = new Alert(Alert.AlertType.CONFIRMATION);
-        alertForMainMenu.setTitle("CONFIRMATION NEEDED  |  GO BACK TO APPOINTMENT MENU");
-        alertForMainMenu.setHeaderText("Are you sure you want to return to your appointments?");
-        alertForMainMenu.setContentText("Data not saved will be lost");
-        Optional<ButtonType> MainMenuSelection = alertForMainMenu.showAndWait();
+        Alert confirmBackToApptMenu = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmBackToApptMenu.setTitle("CONFIRMATION NEEDED  |  GO BACK TO APPOINTMENT MENU");
+        confirmBackToApptMenu.setHeaderText("Are you sure you want to return to your appointments?");
+        confirmBackToApptMenu.setContentText("Data not saved will be lost");
+        Optional<ButtonType> okBackToApptMenu = confirmBackToApptMenu.showAndWait();
 
-        if(MainMenuSelection.isPresent() && MainMenuSelection.get() == ButtonType.OK) {
+        if(okBackToApptMenu.isPresent() && okBackToApptMenu.get() == ButtonType.OK) {
             stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/apptMenu.fxml"));
             stage.setScene(new Scene(scene));
@@ -143,13 +143,13 @@ public class AddApptController implements Initializable {
      */
     public boolean timeValidation(Timestamp start, Timestamp end) {
 
-        boolean endBeforeStart = end.before(start);
-        boolean endEqualsStart = end.equals(start);
+        boolean endTimeIsBeforeStart = end.before(start);
+        boolean endTimeIsEqualToStart = end.equals(start);
 
-        if(endBeforeStart) {
+        if(endTimeIsBeforeStart) {
             Alerts.displayAlert(24);
             return false;
-        } else if(endEqualsStart) {
+        } else if(endTimeIsEqualToStart) {
             Alerts.displayAlert(25);
             return false;
         }
@@ -164,17 +164,17 @@ public class AddApptController implements Initializable {
         Timestamp endUTC = Timestamp.valueOf(utcEndZDT.toLocalDateTime());
 
         try {
-            Statement validAppointmentStatement = JDBC.getConnection().createStatement();
+            Statement appointmentTimeConflictCheck = JDBC.getConnection().createStatement();
 
-            String validApptSQL =
+            String checkForAppointmentTimeOverlap =
                     "SELECT * " +
                     "FROM scheduleapp.appointments " +
                     "WHERE ('" + startZDT + "' BETWEEN Start AND End " +
                     "OR '" + endZDT + "' BETWEEN Start AND End)";
 
-            ResultSet checkApptValidation = validAppointmentStatement.executeQuery(validApptSQL);
+            ResultSet apptOverlap = appointmentTimeConflictCheck.executeQuery(checkForAppointmentTimeOverlap);
 
-            if(checkApptValidation.next()) {
+            if(apptOverlap.next()) {
                 Alerts.displayAlert(26);
                 return false;
             }
@@ -203,11 +203,11 @@ public class AddApptController implements Initializable {
             Timestamp startTimestamp = Timestamp.valueOf(LocalDateTime.of(date, start));
             Timestamp endTimestamp = Timestamp.valueOf(LocalDateTime.of(date, end));
 
-            boolean outsideBusinessHours = TimeZones.isOutsideBusinessHours(date, start, end, ZoneId.systemDefault());
+            boolean checkOutsideBusinessHours = TimeZones.isOutsideBusinessHours(date, start, end, ZoneId.systemDefault());
 
-            if (titleNotNull(titleInfo) && descriptionNotNull(descInfo) && typeNotNull(typeInfo) && locationNotNull(locationInfo) && startNotNull(startTimestamp) &&
-                    endNotNull(endTimestamp) && dateNotNull(date) && customerNotNull(custID) &&
-                    contactNotNull(contactId) && userIdNotNull(userID) && timeValidation(startTimestamp, endTimestamp) && !outsideBusinessHours) {
+            if (titleNotEmpty(titleInfo) && descriptionNotEmpty(descInfo) && typeNotEmpty(typeInfo) && locationNotEmpty(locationInfo) && startTimeNotEmpty(startTimestamp) &&
+                    endTimeNotEmpty(endTimestamp) && dateNotEmpty(date) && customerNotEmpty(custID) &&
+                    contactNotEmpty(contactId) && userIdNotEmpty(userID) && timeValidation(startTimestamp, endTimestamp) && !checkOutsideBusinessHours) {
 
                 DBQueries.insertAppt(titleInfo, descInfo, locationInfo, typeInfo, startTimestamp, endTimestamp, custID, userID, contactInfo);
                 Alerts.displayAlert(23);
@@ -236,13 +236,13 @@ public class AddApptController implements Initializable {
     */
     @FXML
     void clickMainMenu(ActionEvent event) throws IOException {
-        Alert alertForMainMenu = new Alert(Alert.AlertType.CONFIRMATION);
-        alertForMainMenu.setTitle("CONFIRMATION NEEDED  |  GO BACK TO MAIN MENU");
-        alertForMainMenu.setHeaderText("Are you sure you want to return to the Main Menu?");
-        alertForMainMenu.setContentText("Data not saved will be lost");
-        Optional<ButtonType> MainMenuSelection = alertForMainMenu.showAndWait();
+        Alert confirmBackToMainMenu = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmBackToMainMenu.setTitle("CONFIRMATION NEEDED  |  GO BACK TO MAIN MENU");
+        confirmBackToMainMenu.setHeaderText("Are you sure you want to return to the Main Menu?");
+        confirmBackToMainMenu.setContentText("Data not saved will be lost");
+        Optional<ButtonType> okBackToMainMenu = confirmBackToMainMenu.showAndWait();
 
-        if(MainMenuSelection.isPresent() && MainMenuSelection.get() == ButtonType.OK) {
+        if(okBackToMainMenu.isPresent() && okBackToMainMenu.get() == ButtonType.OK) {
             stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/SchedulingApp.fxml"));
             stage.setScene(new Scene(scene));
@@ -270,10 +270,10 @@ public class AddApptController implements Initializable {
         String contactName = contactComboBox.getSelectionModel().getSelectedItem();
         Statement st = JDBC.getConnection().createStatement();
         String sql = "SELECT Contact_ID FROM contacts WHERE Contact_Name='" + contactName + "'";
-        ResultSet resultSet = st.executeQuery(sql);
+        ResultSet contactIdResultSet = st.executeQuery(sql);
 
-        while(resultSet.next()){
-            int contactId = resultSet.getInt("Contact_ID");
+        while(contactIdResultSet.next()){
+            int contactId = contactIdResultSet.getInt("Contact_ID");
             setContactID(contactId);
         }
         st.close();
@@ -285,10 +285,10 @@ public class AddApptController implements Initializable {
         String customerName = customerComboBox.getSelectionModel().getSelectedItem();
         Statement st = JDBC.getConnection().createStatement();
         String sql = "SELECT Customer_ID FROM customers WHERE Customer_Name='" + customerName + "'";
-        ResultSet resultSet = st.executeQuery(sql);
+        ResultSet customerIdResultSet = st.executeQuery(sql);
 
-        while(resultSet.next()){
-            customerIDTxtFld.setText(String.valueOf(resultSet.getInt("Customer_ID")));
+        while(customerIdResultSet.next()){
+            customerIDTxtFld.setText(String.valueOf(customerIdResultSet.getInt("Customer_ID")));
         }
         st.close();
     }
@@ -317,6 +317,7 @@ public class AddApptController implements Initializable {
     void selectUserID(ActionEvent event) {
 
     }  
+    
     @FXML
     void populateApptID(ActionEvent event) {
 
@@ -345,38 +346,38 @@ public class AddApptController implements Initializable {
         typeComboBox.setItems(typeOL);
 
         try {
-            Statement populateExistingCustomers = JDBC.getConnection().createStatement();
+            Statement allCustomers = JDBC.getConnection().createStatement();
             String sqlStatement = "SELECT * FROM customers";
-            ResultSet result = populateExistingCustomers.executeQuery(sqlStatement);
+            ResultSet allCustomersRS = allCustomers.executeQuery(sqlStatement);
 
-            while(result.next()) {
-                currentCustomersOL.add(result.getString("Customer_Name"));
+            while(allCustomersRS.next()) {
+                currentCustomersOL.add(allCustomersRS.getString("Customer_Name"));
                 customerComboBox.setItems(currentCustomersOL);
             }
-            populateExistingCustomers.close();
+            allCustomers.close();
 
-            Statement populateContactStatement = JDBC.getConnection().createStatement();
+            Statement allContacts = JDBC.getConnection().createStatement();
             String sqlContactStatement = "SELECT * FROM contacts";
-            ResultSet contactResult = populateContactStatement.executeQuery(sqlContactStatement);
+            ResultSet allContactsRS = allContacts.executeQuery(sqlContactStatement);
 
-            while(contactResult.next()) {
-                contactOL.add(contactResult.getString("Contact_Name"));
+            while(allContactsRS.next()) {
+                contactOL.add(allContactsRS.getString("Contact_Name"));
                 contactComboBox.setItems(contactOL);
             }
-            populateContactStatement.close();
+            allContacts.close();
 
             userIDOL.clear();
 
-            Statement populateUserIdStatement = JDBC.getConnection().createStatement();
+            Statement allUserIds = JDBC.getConnection().createStatement();
             String sqlUserIdStatement = "SELECT * FROM users";
-            ResultSet userIdResult = populateUserIdStatement.executeQuery(sqlUserIdStatement);
+            ResultSet allUserIdsRS = allUserIds.executeQuery(sqlUserIdStatement);
 
-            while(userIdResult.next()) {
+            while(allUserIdsRS.next()) {
 
-                userIDOL.add(userIdResult.getInt("User_ID"));
+                userIDOL.add(allUserIdsRS.getInt("User_ID"));
                 userIDComboBox.setItems(userIDOL);
             }
-            populateUserIdStatement.close();
+            allUserIds.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -387,7 +388,7 @@ public class AddApptController implements Initializable {
     /**Alert user if title is empty.
      *@param title Title
      */
-    public boolean titleNotNull(String title) {
+    public boolean titleNotEmpty(String title) {
         if (titleTxtFld.getText().isEmpty()) {
             Alerts.displayAlert(13);
             return false;
@@ -398,7 +399,7 @@ public class AddApptController implements Initializable {
     /**Alert user if description is empty.
      *@param description description
      */
-    public boolean descriptionNotNull(String desciption) {
+    public boolean descriptionNotEmpty(String desciption) {
         if (descriptionTxtFld.getText().isEmpty()) {
             Alerts.displayAlert(14);
             return false;
@@ -409,7 +410,7 @@ public class AddApptController implements Initializable {
     /** Alert user if type is unselected
      *@param type Type
      */
-    public boolean typeNotNull(String type) {
+    public boolean typeNotEmpty(String type) {
         if (typeComboBox.getSelectionModel().getSelectedItem() == null) {
             Alerts.displayAlert(16);
             return false;
@@ -420,7 +421,7 @@ public class AddApptController implements Initializable {
     /** Alert user if location is empty
      * @param location Location
      */
-    public boolean locationNotNull(String location) {
+    public boolean locationNotEmpty(String location) {
         if (locationTxtFld.getText().isEmpty()) {
             Alerts.displayAlert(15);
             return false;
@@ -431,7 +432,7 @@ public class AddApptController implements Initializable {
     /**Alert user if start time is unselected.
      *@param start Start time
      */
-    public boolean startNotNull(Timestamp start) {
+    public boolean startTimeNotEmpty(Timestamp start) {
         if (startTimeComboBox.getSelectionModel().getSelectedItem() == null) {
             Alerts.displayAlert(18);
             return false;
@@ -442,7 +443,7 @@ public class AddApptController implements Initializable {
     /** Alert user if end time is unselected.
      *@param end End time
      */
-    public boolean endNotNull(Timestamp end) {
+    public boolean endTimeNotEmpty(Timestamp end) {
         if (endTimeComboBox.getSelectionModel().getSelectedItem() == null) {
             Alerts.displayAlert(19);
             return false;
@@ -453,7 +454,7 @@ public class AddApptController implements Initializable {
     /**Alert user if date hasn't been selected.
      *@param date date
      */
-    public boolean dateNotNull(LocalDate date) {
+    public boolean dateNotEmpty(LocalDate date) {
         if (datePicker.getValue() == null) {
             Alerts.displayAlert(17);
             return false;
@@ -464,7 +465,7 @@ public class AddApptController implements Initializable {
     /**Alert user if customer_id is blank
      *@param customerId customer_id
      */
-    public boolean customerNotNull(int customerId) {
+    public boolean customerNotEmpty(int customerId) {
         if (customerComboBox.getSelectionModel().getSelectedItem() == null) {
             Alerts.displayAlert(20);
             return false;
@@ -475,7 +476,7 @@ public class AddApptController implements Initializable {
     /**Alert user if user_id is blank
      *@param userId User_ID
      */
-    public boolean userIdNotNull(int userId) {
+    public boolean userIdNotEmpty(int userId) {
         if (userIDComboBox.getSelectionModel().getSelectedItem() == null) {
             Alerts.displayAlert(21);
             return false;
@@ -486,7 +487,7 @@ public class AddApptController implements Initializable {
     /**Alert user if contact is unselected
      * @param contact contact
      */
-    public boolean contactNotNull(int contact) {
+    public boolean contactNotEmpty(int contact) {
         if (contactComboBox.getSelectionModel().getSelectedItem() == null) {
             Alerts.displayAlert(22);
             return false;
