@@ -108,7 +108,8 @@ public class ApptMenuController implements Initializable {
     /**Selected Appointment. */
     public static Appointments selectedAppointment;
     
-    /** Getter for selected appointments. */
+    /** Getter for selected appointments.
+     * @return  */
     public static Appointments getSelectedAppointment() {
         return selectedAppointment;
     }
@@ -148,8 +149,8 @@ public class ApptMenuController implements Initializable {
 
     /**
      * Switch screens - specify which when using this.
-     @param actionEvent Action event
-     @param resourcesString Screen link
+     * @param event switch screens
+     * @throws java.io.IOException
      */
     public void switchScreen (ActionEvent event, String resourcesString) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -248,6 +249,8 @@ public class ApptMenuController implements Initializable {
     
     /** 
      * Filter by week.
+     * @return filtered week list
+     * @throws java.sql.SQLException 
      */
     public ObservableList<Appointments> filterByWeek() throws SQLException {
         Statement weeklyAppointments = JDBC.getConnection().createStatement();
@@ -280,6 +283,8 @@ public class ApptMenuController implements Initializable {
    
     /**
     * Filter by month.
+     * @param monthSelected
+     * @return selected month
     */
     public int monthSelection (String monthSelected) {
         int monthId;
@@ -335,6 +340,8 @@ public class ApptMenuController implements Initializable {
 
     /** 
      * Filter appointments by month.
+     * @return appointments filtered by month
+     * @throws java.sql.SQLException 
      */
     public ObservableList<Appointments> filterByMonth() throws SQLException {
         Month currentMonth = LocalDateTime.now().getMonth();
@@ -368,8 +375,9 @@ public class ApptMenuController implements Initializable {
     }
     
     /**
-     * Fill appointments table with data.
-     * Lambda expression used: fill contact name in appointments table.
+     * Fill appointments table with data.Lambda expression used: fill contact name in appointments table.
+     * @param url url
+     * @param rb resource bundle
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

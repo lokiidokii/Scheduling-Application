@@ -81,6 +81,7 @@ public class AddCustomerController implements Initializable {
     
     /**Countries combo box dropdown. 
      * @param event Get corresponding state/province from country
+     * @throws java.sql.SQLException
      */
     @FXML
     public void clickCountryComboBox(ActionEvent event) throws SQLException {
@@ -128,6 +129,7 @@ public class AddCustomerController implements Initializable {
     
     /** Cancel Button.
     * @param event Go back to customer table.
+     * @throws java.io.IOException
     */
     @FXML
     public void clickCustomerTable(ActionEvent event) throws IOException {
@@ -177,7 +179,9 @@ public class AddCustomerController implements Initializable {
     }
 
     
-    /** Fill the country Combo Box. */
+    /** Fill the country Combo Box.
+     * @param url
+     * @param rb */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         countryComboBox.setItems(countriesList);
@@ -185,6 +189,7 @@ public class AddCustomerController implements Initializable {
 
     /**States/provinces combo box dropdown. 
      * @param event select state/province 
+     * @throws java.sql.SQLException 
      */
     @FXML
     public void clickStateComboBox(ActionEvent event) throws SQLException {
@@ -197,6 +202,7 @@ public class AddCustomerController implements Initializable {
     
     /** Get states/provinces from Division ID.
     *@param comboBoxSelection State/province selection
+    * @throws java.sql.SQLException
     */
     public void getAllStatesDivisionID(String comboBoxSelection) throws SQLException {
         Statement state = JDBC.getConnection().createStatement();
@@ -210,6 +216,7 @@ public class AddCustomerController implements Initializable {
 
     /** Alert user if name field is blank.
     * @param name 
+     * @return true
     */
     public boolean nameFieldFilled(String name) {
         if (nameTxtFld.getText().isEmpty()) {
@@ -221,6 +228,7 @@ public class AddCustomerController implements Initializable {
 
     /** Alert user if address field is blank
     * @param address 
+     * @return true
     */
     public boolean addressFieldFilled(String address) {
         if (addressTxtFld.getText().isEmpty()) {
@@ -232,6 +240,7 @@ public class AddCustomerController implements Initializable {
 
     /** Alert user if postal code field is blank
     * @param postalCode 
+     * @return  
     */
     public boolean postalCodeFieldFilled(String postalCode) {
         if (postalTxtFld.getText().isEmpty()) {
@@ -243,6 +252,7 @@ public class AddCustomerController implements Initializable {
 
     /** Alert user if phone number field is blank
     * @param phone 
+     * @return true
     */
     public boolean phoneNumFieldFilled(String phone) {
         if (phoneTxtFld.getText().isEmpty()) {
@@ -254,6 +264,7 @@ public class AddCustomerController implements Initializable {
 
     /** Alert user if country combo box is unselected
     * @param country
+     * @return 
     */
     public boolean countryPicked(String country) {
         if (countryComboBox.getSelectionModel().getSelectedItem() == null) {
@@ -265,6 +276,7 @@ public class AddCustomerController implements Initializable {
 
     /** Alert user if the state (state/province) combo box is unselected.
     * @param state 
+     * @return true
     */
     public boolean statePicked (String state) {
         if (stateComboBox.getSelectionModel().getSelectedItem() == null) {

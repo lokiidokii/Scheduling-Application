@@ -89,6 +89,8 @@ public class ModCustomerController implements Initializable {
     
     /**
      * Fill in the fields with information to modify from the selected customer.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -174,6 +176,7 @@ public class ModCustomerController implements Initializable {
     * Swtich screen.
     * @param event switch screens
     * @param resourcesString link to different screen 
+     * @throws java.io.IOException 
      */
     public void changeScreen(ActionEvent event, String resourcesString) throws IOException {
         //Resources example: "/view/mainMenu.fxml"
@@ -185,6 +188,8 @@ public class ModCustomerController implements Initializable {
     
     /**Click save - save customer modifications.
      * @param event save mods
+     * @throws java.sql.SQLException
+     * @throws java.io.IOException
      */
     @FXML
     public void clickSaveCustomer(ActionEvent event) throws SQLException, IOException {
@@ -212,6 +217,7 @@ public class ModCustomerController implements Initializable {
     
     /** Get states/provinces from Division ID.
     *@param comboBoxSelection select state/province
+     * @throws java.sql.SQLException
     */
     public void getAllStatesDivisionID(String comboBoxSelection) throws SQLException {
         Statement state = JDBC.getConnection().createStatement();

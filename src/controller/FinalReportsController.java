@@ -125,6 +125,7 @@ public class FinalReportsController implements Initializable {
     /** Switch screens.
      * @param event switch screen
      * @param resourcesString link to different screen
+     * @throws java.io.IOException
      */
     public void switchScreen(ActionEvent event, String resourcesString) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -269,6 +270,8 @@ public class FinalReportsController implements Initializable {
 
     /**
      * Initialize combo boxes of Final Reports screen.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -282,7 +285,8 @@ public class FinalReportsController implements Initializable {
         typeComboBox.setItems(typeOL);
     }    
     
-    /** Fill contact list combo box. */
+    /** Fill contact list combo box.
+     * @throws java.sql.SQLException */
     public void fillContacts() throws SQLException {
         Statement loadContactStatement = JDBC.getConnection().createStatement();
         String loadContactNameSQL = "SELECT * FROM contacts";
@@ -294,7 +298,8 @@ public class FinalReportsController implements Initializable {
         }
     }
 
-     /** Fill customer combo box. */
+     /** Fill customer combo box.
+     * @throws java.sql.SQLException */
     public void fillCustomers() throws SQLException {
 
         Statement loadCustomersStatement = JDBC.getConnection().createStatement();
@@ -307,8 +312,9 @@ public class FinalReportsController implements Initializable {
         }
     }
 
-     /** Fill month combo box with list of months. 
-      * Note: months need to be capitalized 
+     /** *  Fill month combo box with list of months.Note: months need to be capitalized
+     * @param monthSelected
+     * @return 
       */
     public int monthSelection(String monthSelected) {
         int monthId;
@@ -354,6 +360,7 @@ public class FinalReportsController implements Initializable {
     
     /** Fill the schedule table with correlating info.
      @return appointments
+     * @throws java.sql.SQLException
      */
     public ObservableList<Appointments> getApptSchedule() throws SQLException {
         String contactName = contactComboBox.getSelectionModel().getSelectedItem();

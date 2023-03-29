@@ -102,6 +102,8 @@ public class SchedulingAppController implements Initializable {
 
     /**
      * Initialize 15 min appt reminder.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -114,6 +116,7 @@ public class SchedulingAppController implements Initializable {
     
     /**
     * Show 15 min appt reminder alert to user.
+     * @throws java.sql.SQLException
     */
     public void gets15MinApptReminder() throws SQLException {
         LocalDateTime localStart = LocalDateTime.now();
@@ -127,6 +130,7 @@ public class SchedulingAppController implements Initializable {
     * Search DB for coming appointments.
     *@param now = within 15 min
     *@param end = within 45 min
+     * @throws java.sql.SQLException
     */
     public void apptReminder(Timestamp now, Timestamp end) throws SQLException {
         PreparedStatement apptIn15Min = JDBC.getConnection().prepareStatement(

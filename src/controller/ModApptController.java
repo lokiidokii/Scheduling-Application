@@ -89,7 +89,8 @@ public class ModApptController implements Initializable {
     private static Appointments selectedAppointment;
     /**Contact id. */
     private int contactId;
-    /**Setter for Contact ID. */
+    /**Setter for Contact ID.
+     * @param contactId */
     public void setContactID(int contactId) {
         this.contactId = contactId;
     }
@@ -155,6 +156,7 @@ public class ModApptController implements Initializable {
     /** Switch screens.
      * @param event switch screens
      * @param resourcesString link to different screen
+     * @throws java.io.IOException
      */
     public void switchScreen(ActionEvent event, String resourcesString) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -215,6 +217,7 @@ public class ModApptController implements Initializable {
     /** Make sure appointment start and end times are valid.
      * @param end End time
      * @param start Start time
+     * @return 
      */
     public boolean timeValidation(Timestamp start, Timestamp end) {
 
@@ -264,7 +267,8 @@ public class ModApptController implements Initializable {
 
     }
 
-     /** Set contact ID field from the contact name selected in the contact combo box. */
+     /** Set contact ID field from the contact name selected in the contact combo box.
+     * @throws java.sql.SQLException */
     public void getContactID() throws SQLException {
 //        String contactName = contactComboBox.getSelectionModel().getSelectedItem();
 //        Statement st = JDBC.getConnection().createStatement();
@@ -279,7 +283,7 @@ public class ModApptController implements Initializable {
     }
     
     /** Get contact id from the contact name.
-     * @param event get contact id
+     * @throws java.sql.SQLException
      */
     public void getContactIDFromContact() throws SQLException {
         String contactName = contactComboBox.getSelectionModel().getSelectedItem();
@@ -296,6 +300,7 @@ public class ModApptController implements Initializable {
     
      /** Get contact id from the contact name.
      * @param event get contact id
+     * @throws java.sql.SQLException
      */
     public void selectContact(ActionEvent event) throws SQLException {
        getContactIDFromContact();
@@ -345,6 +350,8 @@ public class ModApptController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url url
+     * @param rb resource bundle
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -433,6 +440,7 @@ public class ModApptController implements Initializable {
     // ERROR HANDLING
     /**Alert user if title is empty.
      *@param title Title
+     * @return true
      */
     public boolean titleNotNull(String title) {
         if (titleTxtFld.getText().isEmpty()) {
@@ -443,7 +451,8 @@ public class ModApptController implements Initializable {
     }
 
     /**Alert user if description is empty.
-     *@param description description
+     * @param desciption
+     * @return true
      */
     public boolean descriptionNotNull(String desciption) {
         if (descriptionTxtFld.getText().isEmpty()) {
@@ -455,6 +464,7 @@ public class ModApptController implements Initializable {
 
     /**Alert user if type is unselected.
      *@param type Type
+     * @return true
      */
     public boolean typeNotNull(String type) {
         if (typeComboBox.getSelectionModel().getSelectedItem() == null) {
@@ -465,7 +475,9 @@ public class ModApptController implements Initializable {
     }
 
     /**Alert user if location is empty
-     @param location The text in the location*/
+     @param location The text in the location
+     * @return true
+     */
     public boolean locationNotNull(String location) {
         if (locationTxtFld.getText().isEmpty()) {
             Alerts.displayAlert(15);
@@ -476,6 +488,7 @@ public class ModApptController implements Initializable {
 
     /**Alert user if start time is unselected.
      *@param start Start time
+     * @return true
      */
     public boolean startNotNull(Timestamp start) {
         if (startTimeComboBox.getSelectionModel().getSelectedItem() == null) {
@@ -487,6 +500,7 @@ public class ModApptController implements Initializable {
 
     /**Alert user if end time is unselected.
      *@param end End time
+     * @return 
      */
     public boolean endNotNull(Timestamp end) {
         if (endTimeComboBox.getSelectionModel().getSelectedItem() == null) {
@@ -498,6 +512,7 @@ public class ModApptController implements Initializable {
 
     /**Alert user if date hasn't been selected.
      *@param date date
+     * @return true
      */
     public boolean dateNotNull(LocalDate date) {
         if (datePicker.getValue() == null) {
@@ -509,6 +524,7 @@ public class ModApptController implements Initializable {
 
     /**Alert user if customer_id is blank
      *@param customerId customer_id
+     * @return true
      */
     public boolean customerNotNull(int customerId) {
         if (customerComboBox.getSelectionModel().getSelectedItem() == null) {
@@ -520,6 +536,7 @@ public class ModApptController implements Initializable {
 
     /**Alert user if user_id is blank
      *@param userId User_ID
+     * @return true
      */
     public boolean userIdNotNull(int userId) {
         if (userIDComboBox.getSelectionModel().getSelectedItem() == null) {
@@ -531,6 +548,7 @@ public class ModApptController implements Initializable {
 
     /**Alert user if contact is unselected
      * @param contact contact
+     * @return true
      */
     public boolean contactNotNull(int contact) {
         if (contactComboBox.getSelectionModel().getSelectedItem() == null) {

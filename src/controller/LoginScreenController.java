@@ -69,11 +69,27 @@ public class LoginScreenController implements Initializable {
     /* OTHER VARIABLES */
     /** User ID Alert Box. */
     public static String titleForUserID; //USER ID NOT FOUND
+
+    /**
+     *
+     */
     public static String headerForUserID; //Could not find User ID in DB
+
+    /**
+     *
+     */
     public static String contentForUserID; //Re-enter correct username
     /** Login Alert Box.  */
     public static String titleForLogin; //UNABLE TO LOGIN
+
+    /**
+     *
+     */
     public static String headerForLogin; //Incorrect username/pw
+
+    /**
+     *
+     */
     public static String contentForLogin; //Re-enter username/pw
     
     /** Exit Button action.
@@ -86,6 +102,8 @@ public class LoginScreenController implements Initializable {
     
     /**Login Button action. 
      * @param event login
+     * @throws java.io.IOException
+     * @throws java.sql.SQLException
      */
     @FXML
     public void clickLogin(ActionEvent event) throws IOException, SQLException {
@@ -151,6 +169,8 @@ public class LoginScreenController implements Initializable {
 
     /** Match UserID to username from DB. 
     *@param username = username
+     * @return 
+     * @throws java.sql.SQLException
     */
     public static int getUserIdAndUsername(String username) throws SQLException {
         Statement statement = JDBC.getConnection().createStatement();
@@ -171,6 +191,8 @@ public class LoginScreenController implements Initializable {
 
     /**
      * Switch languages or keep login screen text in English.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

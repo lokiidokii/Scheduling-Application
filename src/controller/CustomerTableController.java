@@ -58,6 +58,11 @@ public class CustomerTableController implements Initializable {
     public TableColumn<CustomerInfo, String> customerTableCountryColumn;
 
     /*Customer Table - Customer ID.*/
+
+    /**
+     *
+     */
+
     @FXML
     public TableColumn<CustomerInfo, Integer> customerTableIDColumn;
 
@@ -78,7 +83,8 @@ public class CustomerTableController implements Initializable {
     /**Selected customer. */
     private static CustomerInfo selectedCustomer;
     
-    /** Get selected customer. */
+    /** Get selected customer.
+     * @return  */
     public static CustomerInfo getSelectedCustomer() {
         return selectedCustomer;
     }
@@ -114,10 +120,11 @@ public class CustomerTableController implements Initializable {
         stage.show();
     }
 
-    /** Delete Customer.
-    * 
-    * Check if customer has an existing appointment.
-    * If they do, inform user that they need to delete the appointment first.  
+    /** *  Delete Customer.Check if customer has an existing appointment.If they do, inform user that they need to delete the appointment first.
+    *
+     * @param customerID
+     * @return  
+     * @throws java.sql.SQLException  
     */
         public static int getCustomerApptCount(int customerID) throws SQLException {
         Statement customerApptCount = JDBC.getConnection().createStatement();
@@ -195,6 +202,8 @@ public class CustomerTableController implements Initializable {
     
     /**
      * Fill customer table with data from the DB.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
