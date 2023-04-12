@@ -90,13 +90,13 @@ public class AddApptController implements Initializable {
     /**Getter for Contact ID. 
      *@return contact id
      */
-    public int getContactID() {
+    public int getContactId() {
         return contactId;
     }
     /**Setter for Contact ID. 
      * @param contactId 
      */
-    public void setContactID(int contactId) {
+    public void setContactId(int contactId) {
         this.contactId = contactId;
     }
     /**Observable List for current customers. */
@@ -169,17 +169,17 @@ public class AddApptController implements Initializable {
         Timestamp endUTC = Timestamp.valueOf(utcEndZDT.toLocalDateTime());
 
         try {
-            Statement appointmentTimeConflictCheck = JDBC.getConnection().createStatement();
+            Statement validAppointmentStatement = JDBC.getConnection().createStatement();
 
-            String checkForAppointmentTimeOverlap =
+            String validApptSQL =
                     "SELECT * " +
-                    "FROM scheduleapp.appointments " +
-                    "WHERE ('" + startZDT + "' BETWEEN Start AND End " +
-                    "OR '" + endZDT + "' BETWEEN Start AND End)";
+                    "FROM appointments " +
+                    "WHERE ('" + startUTC + "' BETWEEN Start AND End " +
+                    "OR '" + endUTC + "' BETWEEN Start AND End)";
 
-            ResultSet apptOverlap = appointmentTimeConflictCheck.executeQuery(checkForAppointmentTimeOverlap);
+            ResultSet checkApptValidation = validAppointmentStatement.executeQuery(validApptSQL);
 
-            if(apptOverlap.next()) {
+            if(checkApptValidation.next()) {
                 Alerts.displayAlert(26);
                 return false;
             }
@@ -193,7 +193,8 @@ public class AddApptController implements Initializable {
     * @param event Save new appointment.
     */
     @FXML
-    void clickSaveAppt(ActionEvent event) {
+    void clickSaveAppt(ActionEvent event) throws IOException, SQLException {
+        
         try {
             String titleInfo = titleTxtFld.getText();
             String descInfo = descriptionTxtFld.getText();
@@ -208,11 +209,11 @@ public class AddApptController implements Initializable {
             Timestamp startTimestamp = Timestamp.valueOf(LocalDateTime.of(date, start));
             Timestamp endTimestamp = Timestamp.valueOf(LocalDateTime.of(date, end));
 
-            boolean checkOutsideBusinessHours = TimeZones.isOutsideBusinessHours(date, start, end, ZoneId.systemDefault());
+            boolean outsideBusinessHours = TimeZones.isOutsideBusinessHours(date, start, end, ZoneId.systemDefault());
 
             if (titleNotEmpty(titleInfo) && descriptionNotEmpty(descInfo) && typeNotEmpty(typeInfo) && locationNotEmpty(locationInfo) && startTimeNotEmpty(startTimestamp) &&
                     endTimeNotEmpty(endTimestamp) && dateNotEmpty(date) && customerNotEmpty(custID) &&
-                    contactNotEmpty(contactId) && userIdNotEmpty(userID) && timeValidation(startTimestamp, endTimestamp) && !checkOutsideBusinessHours) {
+                    contactNotEmpty(contactId) && userIdNotEmpty(userID) && timeValidation(startTimestamp, endTimestamp) && !outsideBusinessHours) {
 
                 DBQueries.insertAppt(titleInfo, descInfo, locationInfo, typeInfo, startTimestamp, endTimestamp, custID, userID, contactInfo);
                 Alerts.displayAlert(23);
@@ -280,7 +281,7 @@ public class AddApptController implements Initializable {
 
         while(contactIdResultSet.next()){
             int contactId = contactIdResultSet.getInt("Contact_ID");
-            setContactID(contactId);
+            setContactId(contactId);
         }
         st.close();
     }
