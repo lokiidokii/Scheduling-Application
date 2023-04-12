@@ -247,8 +247,8 @@ public class ModApptController implements Initializable {
             String checkForAppointmentTimeOverlap =
                    "SELECT * " +
                     "FROM appointments " +
-                    "WHERE ('" + startZDT + "' BETWEEN Start AND End " +
-                    "OR '" + endZDT + "' BETWEEN Start AND End) " +
+                    "WHERE ('" + startUTC + "' BETWEEN Start AND End " +
+                    "OR '" + endUTC + "' BETWEEN Start AND End) " +
                     "AND Appointment_ID !=" + apptIDTxtFld.getText();
 
             ResultSet apptOverlap = appointmentTimeConflictCheck.executeQuery(checkForAppointmentTimeOverlap);
