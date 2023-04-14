@@ -10,10 +10,6 @@ Each table has its own functionality and purpose. The customer has the ability t
 ## Purpose 
 Add, modify, and delete appointments for new/existing customers in different timezones and languages
 
-## Date 
-Initial Build Date: 02-23-2023 <br>
-Finalized Build Date: 04-13-2023 <br>
-Application version: 1.0
 ## Build Info
 ### IDE: 
       Apache Netbeans 12.6
